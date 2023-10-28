@@ -1,44 +1,39 @@
-interface IStatistics {
-    viewCount: string;
-    likeCount: string;
-    dislikeCount: string;
-    favoriteCount: string;
-    commentCount: string;
-}
+type Statistics =
+  | "viewCount"
+  | "likeCount"
+  | "dislikeCount"
+  | "favoriteCount"
+  | "commentCount";
 
-interface IThumbnail {
+type Thumbnail = {
     url: string;
     width: number;
     height: number;
-}
+};
 
-interface ISnippet {
+type Thumbnails = "default" | "medium" | "high" | "standard" | "maxres";
+
+type Localized =
+    "title" |
+    "description";
+type Snippet = {
     publishedAt: string;
     channelId: string;
     title: string;
     description: string;
-    thumbnails: {
-        default: IThumbnail;
-        medium: IThumbnail;
-        high: IThumbnail;
-        standard: IThumbnail;
-        maxres: IThumbnail;
-    };
+    thumbnails: Record<Thumbnails, Thumbnail>;
     channelTitle: string;
     tags: string[];
     categoryId: string;
     liveBroadcastContent: string;
-    localized: {
-        title: string;
-        description: string;
-    };
+    localized: Record<Localized, string>;
     defaultAudioLanguage: string;
-}
+};
 
-export interface ISearchItem {
+export type SearchItem = {
     kind: string;
     etag: string;
     id: string;
-    snippet: ISnippet;
-    statistics: IStatistics;
-}
+    snippet: Snippet;
+    statistics: Record<Statistics, string>;
+};

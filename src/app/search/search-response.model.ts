@@ -1,11 +1,9 @@
-import { ISearchItem } from "./search-item.model";
+import { SearchItem } from "./search-item.model";
 
-export interface ISearchResponse {
+type PageInfo = "totalResults" | "resultsPerPage";
+export type SearchResponse = {
     kind: string;
     etag: string;
-    pageInfo: {
-        totalResults: number;
-        resultsPerPage: number;
-    };
-    items: ISearchItem[];
-}
+    pageInfo: Record<PageInfo, number>;
+    items: SearchItem[];
+};
