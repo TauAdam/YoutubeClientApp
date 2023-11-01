@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core'
+import { Component } from '@angular/core'
 
+import { mockedData } from '../../../assets/response'
 import { SearchResponse } from '../search-response.model'
 
 @Component({
@@ -8,5 +9,7 @@ import { SearchResponse } from '../search-response.model'
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent {
-  @Input() searchResults!: SearchResponse
+  searchRes: SearchResponse = mockedData
+
+  searchResultItems = this.searchRes.items
 }

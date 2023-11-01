@@ -1,4 +1,4 @@
-export const responseExample = {
+export const mockedData = {
   TODO: 'TO BE UPDATED',
 
   kind: 'youtube#videoListResponse',

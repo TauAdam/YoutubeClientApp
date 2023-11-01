@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { BrowserModule } from '@angular/platform-browser'
@@ -29,6 +31,8 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     AppRoutingModule,
     MatSlideToggleModule,
     MatIconModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
