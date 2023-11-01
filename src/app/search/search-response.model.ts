@@ -1,9 +1,9 @@
-import { SearchItem } from "./search-item.model";
+import { SearchItem } from './search-item.model'
 
-type PageInfo = "totalResults" | "resultsPerPage";
+type PageInfo = 'totalResults' | 'resultsPerPage'
 export type SearchResponse = {
-    kind: string;
-    etag: string;
-    pageInfo: Record<PageInfo, number>;
-    items: SearchItem[];
-};
+  kind: string
+  etag: string
+  pageInfo: Record<PageInfo, number>
+  items: SearchItem[]
+}

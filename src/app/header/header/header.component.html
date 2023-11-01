@@ -1,0 +1,29 @@
+<header>
+  <nav>
+    <div class="toolbar">
+      <app-logo></app-logo>
+      <div class="search-block">
+        <input
+          #searchInput
+          class="search-input"
+          type="search"
+          matInput
+          placeholder="What are you want to find out?" />
+        <button (click)="submitForm(searchInput.value)" class="search-btn">
+          search
+        </button>
+      </div>
+      <img
+        class="search-settings"
+        (click)="toggleSortingBlock()"
+        src="assets/search_settings.svg"
+        alt="search_settings" />
+    </div>
+    <div class="login-block">
+      <app-login-information-block></app-login-information-block>
+    </div>
+  </nav>
+  <div class="filter-block" *ngIf="isSortingVisible">
+    <app-filter></app-filter>
+  </div>
+</header>

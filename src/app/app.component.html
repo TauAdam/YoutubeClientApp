@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<app-header (searchQuery)="showResultItems($event)"></app-header>
+<app-search-results *ngIf="searchTag"></app-search-results>
