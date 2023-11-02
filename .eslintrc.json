@@ -22,7 +22,6 @@
         "import/first": "error",
         "import/newline-after-import": "error",
         "import/no-duplicates": "error",
-        // "max-len": ["error", 120],
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
         // eslint-plugin-unused-imports rules
@@ -40,6 +39,7 @@
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/no-shadow": "error",
         "@typescript-eslint/no-explicit-any": "error",
+        "class-methods-use-this": "off",
         // Angular ESLint rules
         "@angular-eslint/directive-selector": [
           "error",

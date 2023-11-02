@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 
 import { SearchItem } from '../search-item.model'
 
@@ -7,7 +7,7 @@ import { SearchItem } from '../search-item.model'
   templateUrl: './search-item.component.html',
   styleUrls: ['./search-item.component.scss'],
 })
-export class SearchItemComponent {
+export class SearchItemComponent implements OnInit {
   @Input() item!: SearchItem
 
   videoThumbnail!: string

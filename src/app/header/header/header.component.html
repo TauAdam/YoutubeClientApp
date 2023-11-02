@@ -24,6 +24,8 @@
     </div>
   </nav>
   <div class="filter-block" *ngIf="isSortingVisible">
-    <app-filter></app-filter>
+    <app-filter
+      (filterTag)="onFilterChange($event)"
+      (sortItems)="onSortChange($event)"></app-filter>
   </div>
 </header>
