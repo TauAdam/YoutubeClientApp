@@ -1,10 +1,15 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core'
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core'
 
 @Directive({
   selector: '[appColoredBorder]',
 })
 export class ColoredBorderDirective implements OnInit {
-  @Input() appColoredBorder!: string
+  @Input() appColoredBorder = ''
+
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   getColor() {
     const currentDate = new Date()
@@ -23,11 +28,15 @@ export class ColoredBorderDirective implements OnInit {
     return 'blue'
   }
 
-  ngOnInit(): void {
-    if (this.appColoredBorder) {
-      this.elementRef.nativeElement.style.borderBottom = `5px solid ${this.getColor()}`
-    }
+  setColor() {
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'border-bottom',
+      `5px solid ${this.getColor()}`
+    )
   }
 
-  constructor(private elementRef: ElementRef) {}
+  ngOnInit(): void {
+    this.setColor()
+  }
 }
