@@ -20,11 +20,28 @@ export class FilterComponent {
 
   sortingOptions?: SortingOptions
 
-  handleSorting(type: SortType) {
-    this.sortingOptions = {
-      type,
-      direction: 'asc',
+  setSortingDirection(type: SortType) {
+    if (!this.sortingOptions) {
+      this.sortingOptions = {
+        type,
+        direction: 'asc',
+      }
     }
+    if (this.sortingOptions.direction === 'asc') {
+      this.sortingOptions = {
+        type,
+        direction: 'desc',
+      }
+    } else {
+      this.sortingOptions = {
+        type,
+        direction: 'asc',
+      }
+    }
+  }
+
+  handleSorting(type: SortType) {
+    this.setSortingDirection(type)
     this.sortItems.emit(this.sortingOptions)
   }
 }
