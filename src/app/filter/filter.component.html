@@ -1,7 +1,9 @@
 <div class="filter">
   <span class="label">Sorting by:</span>
-  <button (click)="handleSorting('date')">date</button>
-  <button (click)="handleSorting('views')">count of views</button>
+  <app-custom-button (click)="handleSorting('date')">date</app-custom-button>
+  <app-custom-button (click)="handleSorting('views')"
+    >count of views</app-custom-button
+  >
   <span class="colored">by word or sentance</span>
   <input
     type="text"

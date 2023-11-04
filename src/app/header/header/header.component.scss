@@ -25,9 +25,7 @@ nav {
     height: 24px;
   }
   &-btn {
-    border: none;
     filter: drop-shadow(2px 0px 4px #2f80ed);
-    padding: 5px 22px;
     background: #2f80ed;
     border-radius: 0px 4px 4px 0px;
     font-family: 'Roboto';
@@ -35,8 +33,9 @@ nav {
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: #ffffff;
-    cursor: pointer;
+  }
+  &-span{
+    color: #fff;
   }
   &-settings {
     cursor: pointer;

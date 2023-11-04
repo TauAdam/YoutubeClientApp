@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
+import { CustomButtonComponent } from './custom-button/custom-button.component'
 import { ColoredBorderDirective } from './directives/colored-border.directive'
 import { FilterComponent } from './filter/filter.component'
 import { HeaderComponent } from './header/header/header.component'
@@ -32,6 +33,7 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     ColoredBorderDirective,
     TextFilterPipe,
     SortSearchResultsPipe,
+    CustomButtonComponent,
   ],
   imports: [
     BrowserModule,

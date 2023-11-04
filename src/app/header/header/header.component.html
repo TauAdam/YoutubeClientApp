@@ -9,9 +9,11 @@
           type="search"
           matInput
           placeholder="What are you want to find out?" />
-        <button (click)="submitForm(searchInput.value)" class="search-btn">
-          search
-        </button>
+        <app-custom-button
+          (click)="submitForm(searchInput.value)"
+          class="search-btn">
+          <span class="search-span"> search </span>
+        </app-custom-button>
       </div>
       <img
         class="search-settings"
