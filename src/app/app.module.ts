@@ -33,7 +33,6 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     ColoredBorderDirective,
     TextFilterPipe,
     SortSearchResultsPipe,
-    CustomButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +42,7 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     MatCardModule,
     MatButtonModule,
     FormsModule,
+    CustomButtonComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
