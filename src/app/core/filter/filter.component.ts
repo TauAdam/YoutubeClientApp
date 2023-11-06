@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core'
 
-import { SortingOptions, SortType } from '../models/sorting'
+import { SortingOptions, SortType } from '../../models/sorting'
 
 @Component({
   selector: 'app-filter',
