@@ -7,32 +7,11 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
-import { FilterComponent } from './core/filter/filter.component'
+import { CoreModule } from './core/core.module'
 import { CustomButtonComponent } from './custom-button/custom-button.component'
-import { ColoredBorderDirective } from './directives/colored-border.directive'
-import { HeaderComponent } from './header/header/header.component'
-import { LoginInformationBlockComponent } from './header/login-information-block/login-information-block.component'
-import { LogoComponent } from './header/logo/logo.component'
-import { SortSearchResultsPipe } from './pipes/sort-search-results.pipe'
-import { TextFilterPipe } from './pipes/text-filter.pipe'
-import { SearchBarComponent } from './search/search-bar/search-bar.component'
-import { SearchItemComponent } from './search/search-item/search-item.component'
-import { SearchResultsComponent } from './search/search-results/search-results.component'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    SearchResultsComponent,
-    SearchItemComponent,
-    SearchBarComponent,
-    LogoComponent,
-    LoginInformationBlockComponent,
-    FilterComponent,
-    ColoredBorderDirective,
-    TextFilterPipe,
-    SortSearchResultsPipe,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,6 +20,7 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     MatCardModule,
     FormsModule,
     CustomButtonComponent,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

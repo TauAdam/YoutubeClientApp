@@ -1,9 +1,5 @@
-<app-header
-  (searchQuery)="showResultItems($event)"
-  (filterWord)="handleFilterChange($event)"
+<app-header (searchQuery)="showResultItems($event)" (filterWord)="handleFilterChange($event)"
   (sorting)="handleSortChange($event)"></app-header>
-<app-search-results
-  [items]="
+<app-search-results [items]="
     searchItems | textFilter: textForFilter | sortSearchResults: sortOptions
-  "
-  *ngIf="searchTag"></app-search-results>
+  " *ngIf="searchTag"></app-search-results>

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core'
 
-import { SortingOptions, SortType } from '../models/sorting'
-import { SearchItem } from '../search/search-item.model'
+import { SearchItem } from '../models/search-item.model'
+import { SortingOptions, SortType } from '../models/sorting.model'
 
 @Pipe({
   name: 'sortSearchResults',

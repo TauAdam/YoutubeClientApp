@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 
 import { mockedData } from '../assets/response'
-import { SortingOptions } from './models/sorting'
-import { SearchResponse } from './search/search-response.model'
+import { SearchResponse } from './youtube/models/search-response.model'
+import { SortingOptions } from './youtube/models/sorting.model'
 
 @Component({
   selector: 'app-root',

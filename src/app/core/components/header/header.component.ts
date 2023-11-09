@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core'
 
-import { SortingOptions } from '../../models/sorting'
+import { SortingOptions } from '../../../youtube/models/sorting.model'
 
 @Component({
   selector: 'app-header',
