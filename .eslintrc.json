@@ -39,6 +39,7 @@
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/no-shadow": "error",
         "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/explicit-member-accessibility": "warn",
         "class-methods-use-this": "off",
         // Angular ESLint rules
         "@angular-eslint/directive-selector": [

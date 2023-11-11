@@ -10,27 +10,27 @@ import { SearchResponse } from './search/search-response.model'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'youtube-client-app'
+  public title = 'youtube-client-app'
 
-  searchTag = ''
+  protected searchTag = ''
 
-  searchRes: SearchResponse = mockedData
+  private searchRes: SearchResponse = mockedData
 
-  searchItems = this.searchRes.items
+  protected searchItems = this.searchRes.items
 
-  showResultItems(tag: string) {
+  protected textForFilter?: string
+
+  protected sortOptions?: SortingOptions
+
+  protected showResultItems(tag: string) {
     this.searchTag = `${tag} `
   }
 
-  textForFilter?: string
-
-  handleFilterChange(word: string) {
+  protected handleFilterChange(word: string) {
     this.textForFilter = word
   }
 
-  sortOptions?: SortingOptions
-
-  handleSortChange(sortOptions: SortingOptions) {
+  protected handleSortChange(sortOptions: SortingOptions) {
     this.sortOptions = sortOptions
   }
 }

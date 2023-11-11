@@ -8,27 +8,27 @@ import { SortingOptions } from '../../models/sorting'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output() searchQuery = new EventEmitter<string>()
+  @Output() private searchQuery = new EventEmitter<string>()
 
-  @Output() filterWord = new EventEmitter<string>()
+  @Output() private filterWord = new EventEmitter<string>()
 
-  @Output() sorting = new EventEmitter<SortingOptions>()
+  @Output() private sorting = new EventEmitter<SortingOptions>()
 
-  submitForm(value: string) {
+  protected isSortingVisible = false
+
+  protected submitForm(value: string) {
     this.searchQuery.emit(value)
   }
 
-  isSortingVisible = false
-
-  toggleSortingBlock() {
+  protected toggleSortingBlock() {
     this.isSortingVisible = !this.isSortingVisible
   }
 
-  onFilterChange(word: string) {
+  protected onFilterChange(word: string) {
     this.filterWord.emit(word)
   }
 
-  onSortChange(sortOptions: SortingOptions) {
+  protected onSortChange(sortOptions: SortingOptions) {
     this.sorting.emit(sortOptions)
   }
 }

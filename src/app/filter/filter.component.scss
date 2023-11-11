@@ -1,13 +1,18 @@
 .filter {
   font-weight: 400;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 14px;
   display: flex;
   gap: 20px;
+  &-link {
+    cursor: pointer;
+    color: #2f80ed;
+  }
+}
+.current {
+  text-decoration-line: underline;
 }
 button {
-  text-decoration-line: underline;
-  color: #2f80ed;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -20,6 +25,6 @@ button {
 }
 .input {
   width: 149px;
-  height: 13px;
+  height: 16px;
   border: none;
 }

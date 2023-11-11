@@ -6,7 +6,7 @@ import { SearchItem } from '../search/search-item.model'
   name: 'textFilter',
 })
 export class TextFilterPipe implements PipeTransform {
-  transform(items: SearchItem[], text?: string): SearchItem[] {
+  public transform(items: SearchItem[], text?: string): SearchItem[] {
     if (!text) return items
     return items.filter(item =>
       item.snippet.title.toLowerCase().includes(text.toLowerCase())

@@ -1,8 +1,16 @@
 <div class="filter">
   <span class="label">Sorting by:</span>
-  <app-custom-button (click)="handleSorting('date')">date</app-custom-button>
-  <app-custom-button (click)="handleSorting('views')"
-    >count of views</app-custom-button
+  <a
+    [ngClass]="{ current: sortingOptions?.type === 'date' }"
+    class="filter-link"
+    (click)="handleSorting('date')"
+    >date</a
+  >
+  <a
+    [ngClass]="{ current: sortingOptions?.type === 'views' }"
+    class="filter-link"
+    (click)="handleSorting('views')"
+    >count of views</a
   >
   <span class="colored">by word or sentance</span>
   <input

@@ -8,19 +8,19 @@ import { SortingOptions, SortType } from '../models/sorting'
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent {
-  @Output() filterTag = new EventEmitter<string>()
+  @Output() private filterTag = new EventEmitter<string>()
 
-  @Output() sortItems = new EventEmitter<SortingOptions>()
+  @Output() private sortItems = new EventEmitter<SortingOptions>()
 
-  tag = ''
+  protected tag = ''
 
-  onFilterItems() {
+  protected sortingOptions?: SortingOptions
+
+  protected onFilterItems() {
     this.filterTag.emit(this.tag)
   }
 
-  sortingOptions?: SortingOptions
-
-  setSortingDirection(type: SortType) {
+  private setSortingDirection(type: SortType) {
     if (!this.sortingOptions) {
       this.sortingOptions = {
         type,
@@ -40,7 +40,7 @@ export class FilterComponent {
     }
   }
 
-  handleSorting(type: SortType) {
+  protected handleSorting(type: SortType) {
     this.setSortingDirection(type)
     this.sortItems.emit(this.sortingOptions)
   }

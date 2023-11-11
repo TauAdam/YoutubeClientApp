@@ -1,42 +1,44 @@
 import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core'
 
+const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000
+
 @Directive({
   selector: '[appColoredBorder]',
 })
 export class ColoredBorderDirective implements OnInit {
-  @Input() appColoredBorder = ''
+  @Input() public appColoredBorder = ''
 
-  constructor(
+  public constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2
   ) {}
 
-  getColor() {
+  public ngOnInit(): void {
+    this.setColor()
+  }
+
+  private getColor() {
     const currentDate = new Date()
     const publicationDate = new Date(this.appColoredBorder).getTime()
     const timeDifference = currentDate.getTime() - publicationDate
-    const millisecondsInADay = 24 * 60 * 60 * 1000
-    if (timeDifference > 6 * 30 * millisecondsInADay) {
+
+    if (timeDifference > 6 * 30 * MILLISECONDS_IN_A_DAY) {
       return 'red'
     }
-    if (timeDifference > 30 * millisecondsInADay) {
+    if (timeDifference > 30 * MILLISECONDS_IN_A_DAY) {
       return 'yellow'
     }
-    if (timeDifference > 7 * millisecondsInADay) {
+    if (timeDifference > 7 * MILLISECONDS_IN_A_DAY) {
       return 'green'
     }
     return 'blue'
   }
 
-  setColor() {
+  private setColor() {
     this.renderer.setStyle(
       this.elementRef.nativeElement,
       'border-bottom',
       `5px solid ${this.getColor()}`
     )
-  }
-
-  ngOnInit(): void {
-    this.setColor()
   }
 }
