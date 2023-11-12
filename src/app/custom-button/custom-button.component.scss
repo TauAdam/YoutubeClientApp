@@ -1,0 +1,40 @@
+button {
+  display: inline-flex;
+  padding: 1px 0px;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+
+  cursor: pointer;
+}
+.search-btn {
+  filter: drop-shadow(2px 0px 4px #2f80ed);
+  border-radius: 0px 4px 4px 0px;
+  background: #2f80ed;
+  box-shadow: 2px 0px 4px 0px #2f80ed;
+  width: 80px;
+  height: 24px;
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.more-button {
+  width: 120px;
+  height: 32px;
+  background: #2f80ed;
+  border-radius: 5px;
+  filter: drop-shadow(2px 0px 4px #2f80ed);
+
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

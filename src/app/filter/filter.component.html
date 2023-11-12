@@ -1,0 +1,21 @@
+<div class="filter">
+  <span class="label">Sorting by:</span>
+  <a
+    [ngClass]="{ current: sortingOptions?.type === 'date' }"
+    class="filter-link"
+    (click)="handleSorting('date')"
+    >date</a
+  >
+  <a
+    [ngClass]="{ current: sortingOptions?.type === 'views' }"
+    class="filter-link"
+    (click)="handleSorting('views')"
+    >count of views</a
+  >
+  <span class="colored">by word or sentance</span>
+  <input
+    type="text"
+    class="input"
+    [(ngModel)]="tag"
+    (ngModelChange)="onFilterItems()" />
+</div>

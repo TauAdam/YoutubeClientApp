@@ -1,12 +1,12 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core'
 
-import { SearchResponse } from "../search-response.model";
+import { SearchItem } from '../search-item.model'
 
 @Component({
-    selector: "app-search-results",
-    templateUrl: "./search-results.component.html",
-    styleUrls: ["./search-results.component.scss"],
+  selector: 'app-search-results',
+  templateUrl: './search-results.component.html',
+  styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent {
-    @Input() searchResults!: SearchResponse;
+  @Input() public items!: SearchItem[]
 }
