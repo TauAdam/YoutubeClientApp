@@ -6,5 +6,5 @@ import { Component } from '@angular/core'
   styleUrls: ['./login-information-block.component.scss'],
 })
 export class LoginInformationBlockComponent {
-  enteredName = 'Your Name'
+  protected enteredName = 'Your Name'
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 
 @Component({
@@ -9,4 +9,6 @@ import { MatButtonModule } from '@angular/material/button'
   templateUrl: './custom-button.component.html',
   styleUrls: ['./custom-button.component.scss'],
 })
-export class CustomButtonComponent {}
+export class CustomButtonComponent {
+  @Input() public classNames = ''
+}

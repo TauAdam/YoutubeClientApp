@@ -7,7 +7,7 @@ import { SortingOptions, SortType } from '../models/sorting.model'
   name: 'sortSearchResults',
 })
 export class SortSearchResultsPipe implements PipeTransform {
-  transform(
+  public transform(
     items: SearchItem[],
     sortingOptions?: SortingOptions
   ): SearchItem[] {
@@ -15,7 +15,9 @@ export class SortSearchResultsPipe implements PipeTransform {
       return items
     }
 
-    return items.sort((a, b) => {
+    const sortedItems = [...items]
+
+    return sortedItems.sort((a, b) => {
       const directionFactor = sortingOptions.direction === 'asc' ? 1 : -1
       const valueA = this.getValueToSortBy(a, sortingOptions.type)
       const valueB = this.getValueToSortBy(b, sortingOptions.type)
@@ -30,7 +32,7 @@ export class SortSearchResultsPipe implements PipeTransform {
     })
   }
 
-  getValueToSortBy(item: SearchItem, sortType: SortType) {
+  private getValueToSortBy(item: SearchItem, sortType: SortType) {
     switch (sortType) {
       case 'date':
         return new Date(item.snippet.publishedAt)

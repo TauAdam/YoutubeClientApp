@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component } from '@angular/core'
 
-import { SortingOptions } from '../../../youtube/models/sorting.model'
+import { YoutubeSearchService } from '../../../youtube/services/youtube/youtube-search.service'
 
 @Component({
   selector: 'app-header',
@@ -8,27 +8,15 @@ import { SortingOptions } from '../../../youtube/models/sorting.model'
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output() searchQuery = new EventEmitter<string>()
+  protected isFilteringBlockVisible = false
 
-  @Output() filterWord = new EventEmitter<string>()
+  public constructor(private youtubeService: YoutubeSearchService) {}
 
-  @Output() sorting = new EventEmitter<SortingOptions>()
-
-  submitForm(value: string) {
-    this.searchQuery.emit(value)
+  protected submitForm(value: string) {
+    this.youtubeService.searchByTag(value)
   }
 
-  isSortingVisible = false
-
-  toggleSortingBlock() {
-    this.isSortingVisible = !this.isSortingVisible
-  }
-
-  onFilterChange(word: string) {
-    this.filterWord.emit(word)
-  }
-
-  onSortChange(sortOptions: SortingOptions) {
-    this.sorting.emit(sortOptions)
+  protected toggleSortingBlock() {
+    this.isFilteringBlockVisible = !this.isFilteringBlockVisible
   }
 }

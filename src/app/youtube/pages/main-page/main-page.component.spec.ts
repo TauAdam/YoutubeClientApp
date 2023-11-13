@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { FilterComponent } from './filter.component'
+import { MainPageComponent } from './main-page.component'
 
-describe('FilterComponent', () => {
-  let component: FilterComponent
-  let fixture: ComponentFixture<FilterComponent>
+describe('MainPageComponent', () => {
+  let component: MainPageComponent
+  let fixture: ComponentFixture<MainPageComponent>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FilterComponent],
+      declarations: [MainPageComponent],
     })
-    fixture = TestBed.createComponent(FilterComponent)
+    fixture = TestBed.createComponent(MainPageComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

@@ -11,8 +11,8 @@
           placeholder="What are you want to find out?" />
         <app-custom-button
           (click)="submitForm(searchInput.value)"
-          class="search-btn">
-          <span class="search-span"> search </span>
+          classNames="search-btn">
+          search
         </app-custom-button>
       </div>
       <img
@@ -25,9 +25,7 @@
       <app-login-information-block></app-login-information-block>
     </div>
   </nav>
-  <div class="filter-block" *ngIf="isSortingVisible">
-    <app-filter
-      (filterTag)="onFilterChange($event)"
-      (sortItems)="onSortChange($event)"></app-filter>
+  <div class="filter-block" *ngIf="isFilteringBlockVisible">
+    <app-filtering-criteria-block></app-filtering-criteria-block>
   </div>
 </header>

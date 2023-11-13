@@ -8,5 +8,5 @@ import { SearchItem } from '../../models/search-item.model'
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent {
-  @Input() items!: SearchItem[]
+  @Input() public items!: SearchItem[]
 }
