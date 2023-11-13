@@ -17,7 +17,8 @@ import { SortSearchResultsPipe } from './pipes/sort-search-results.pipe'
 import { TextFilterPipe } from './pipes/text-filter.pipe'
 import { SearchBarComponent } from './search/search-bar/search-bar.component'
 import { SearchItemComponent } from './search/search-item/search-item.component'
-import { SearchResultsComponent } from './search/search-results/search-results.component'
+import { SearchResultsComponent } from './search/search-results/search-results.component';
+import { LoginFormComponent } from './login-form/login-form.component'
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
     ColoredBorderDirective,
     TextFilterPipe,
     SortSearchResultsPipe,
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,
