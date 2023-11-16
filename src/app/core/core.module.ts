@@ -8,6 +8,7 @@ import { FilteringCriteriaBlockComponent } from './components/filtering-criteria
 import { HeaderComponent } from './components/header/header.component'
 import { LoginInformationBlockComponent } from './components/login-information-block/login-information-block.component'
 import { LogoComponent } from './components/logo/logo.component'
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { LogoComponent } from './components/logo/logo.component'
     HeaderComponent,
     LoginInformationBlockComponent,
     LogoComponent,
+    NotFoundPageComponent,
   ],
   imports: [CommonModule, FormsModule, MatIconModule, CustomButtonComponent],
   exports: [HeaderComponent],
