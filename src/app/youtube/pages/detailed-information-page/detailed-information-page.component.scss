@@ -1,0 +1,103 @@
+.video-card {
+  width: 1200px;
+  height: 461px;
+  margin: 0 auto;
+  display: flex;
+}
+.search-item {
+  display: flex;
+  width: max-content;
+  filter: drop-shadow(5px 10px 10px rgba(47, 128, 237, 0.25));
+}
+.video {
+  display: flex;
+  width: 729px;
+  height: 461px;
+  img {
+    width: 100%;
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 0px 0px 0px 5px;
+    background: lightgray 50% / cover no-repeat;
+    box-shadow: 5px 10px 20px 0px rgba(51, 51, 51, 0.25);
+  }
+}
+.stats-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  &-item {
+    display: flex;
+    align-items: center;
+    color: #000;
+    font-family: Roboto;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+.title {
+  color: #000;
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.date {
+  color: #828282;
+  text-align: right;
+  font-family: Roboto;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.right-side {
+  width: 436px;
+  height: 461px;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 30px;
+  border-radius: 0px 5px 5px 0px;
+  background: #e5e5e5;
+  box-shadow: 5px 5px 20px 0px rgba(51, 51, 51, 0.25);
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.back-btn {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(-2px 2px 4px rgba(47, 128, 237, 0.25));
+  cursor: pointer;
+}
+.desc {
+  &-title {
+    color: #000;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  &-text {
+    max-width: 365px;
+    max-height: 280px;
+    color: #828282;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}

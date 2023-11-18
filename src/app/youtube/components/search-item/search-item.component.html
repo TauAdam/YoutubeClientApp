@@ -22,6 +22,8 @@
       </div>
     </div>
     <p class="title">{{ item.snippet.title }}</p>
-    <app-custom-button classNames="more-button">more...</app-custom-button>
+    <app-custom-button [routerLink]="item.id" classNames="more-button"
+      >more...</app-custom-button
+    >
   </mat-card-content>
 </mat-card>

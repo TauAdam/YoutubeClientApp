@@ -1,0 +1,49 @@
+<div class="video-card">
+  <img
+    routerLink="/youtube"
+    class="back-btn"
+    src="assets/back_button.svg"
+    alt="back" />
+  <div class="search-item">
+    <div class="video">
+      <img
+        [src]="selectedVideo.snippet.thumbnails.medium.url"
+        [alt]="selectedVideo.snippet.title" />
+    </div>
+
+    <div
+      class="right-side"
+      [appColoredBorder]="selectedVideo.snippet.publishedAt">
+      <div class="right-side-header">
+        <div class="title">{{ selectedVideo.snippet.title }}</div>
+        <div class="date">
+          {{ selectedVideo.snippet.publishedAt | date: 'fullDate' }}
+        </div>
+      </div>
+      <div class="right-side-body">
+        <div class="desc-title">Description:</div>
+        <div class="desc-text">{{ selectedVideo.snippet.description }}</div>
+      </div>
+      <div class="right-side-statistics">
+        <div class="stats-bar">
+          <div class="stats-bar-item">
+            <mat-icon>visibility</mat-icon>
+            <span>{{ selectedVideo.statistics.viewCount }}</span>
+          </div>
+          <div class="stats-bar-item">
+            <mat-icon>thumb_up</mat-icon>
+            <span>{{ selectedVideo.statistics.likeCount }}</span>
+          </div>
+          <div class="stats-bar-item">
+            <mat-icon>thumb_down</mat-icon>
+            <span>{{ selectedVideo.statistics.dislikeCount }}</span>
+          </div>
+          <div class="stats-bar-item">
+            <mat-icon>forum</mat-icon>
+            <span>{{ selectedVideo.statistics.commentCount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

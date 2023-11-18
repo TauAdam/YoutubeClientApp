@@ -21,4 +21,8 @@ export class YoutubeSearchService {
   public getSearchItems() {
     return this.searchRes.items
   }
+
+  public getSelectedVideo(id: string) {
+    return this.searchRes.items.find(item => item.id === id)
+  }
 }

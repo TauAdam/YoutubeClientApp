@@ -8,6 +8,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { SearchItemComponent } from './components/search-item/search-item.component'
 import { SearchResultsComponent } from './components/search-results/search-results.component'
 import { ColoredBorderDirective } from './directives/colored-border.directive'
+import { DetailedInformationPageComponent } from './pages/detailed-information-page/detailed-information-page.component'
 import { MainPageComponent } from './pages/main-page/main-page.component'
 import { SortSearchResultsPipe } from './pipes/sort-search-results.pipe'
 import { TextFilterPipe } from './pipes/text-filter.pipe'
@@ -22,6 +23,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module'
     MainPageComponent,
     TextFilterPipe,
     SortSearchResultsPipe,
+    DetailedInformationPageComponent,
   ],
   imports: [
     CommonModule,
