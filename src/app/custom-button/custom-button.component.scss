@@ -38,3 +38,13 @@ button {
   font-weight: 400;
   line-height: normal;
 }
+.login-btn {
+  width: 124px;
+  height: 30px;
+  flex-shrink: 0;
+  box-shadow: 2px 0px 4px 0px #2f80ed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2F80ED;
+}

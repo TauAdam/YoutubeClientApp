@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <div class="title">Login</div>
+  <form [formGroup]="loginForm" class="form" (ngSubmit)="handleSubmit()">
+    <div class="fields">
+      <div class="field">
+        <label for="login">login</label>
+        <input id="login" formControlName="username" autocomplete="username" />
+      </div>
+      <div class="field">
+        <label for="password">password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          autocomplete="current-password" />
+      </div>
+    </div>
+    <div class="btn-block">
+      <app-custom-button classNames="login-btn">Login</app-custom-button>
+    </div>
+  </form>
+</div>
