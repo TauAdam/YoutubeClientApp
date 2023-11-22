@@ -4,4 +4,4 @@
       | textFilter: filteringService.filterWord
       | sortSearchResults: sortingService.sortOptions
   "
-  *ngIf="searchTagValue"></app-search-results>
+  *ngIf="youtubeService.searchTag$ | async"></app-search-results>

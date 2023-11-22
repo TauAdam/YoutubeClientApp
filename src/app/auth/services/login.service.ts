@@ -20,13 +20,17 @@ export class LoginService {
   }
 
   public isAuthorized() {
-    return !!localStorage.getItem(this.localStorageKey)
+    return !!this.getToken()
   }
 
   public logout() {
     this.deleteToken()
     this.currentUsername = this.defaultUsername
     this.router.navigate(['/login'])
+  }
+
+  private getToken() {
+    return localStorage.getItem(this.localStorageKey)
   }
 
   private saveToken(token: string) {

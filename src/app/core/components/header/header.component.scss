@@ -4,15 +4,15 @@ header {
 nav {
   height: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 140px;
   position: relative;
 }
 .toolbar {
   display: flex;
   gap: 10px;
   align-items: center;
-  margin: 0 auto;
 }
 .search {
   &-block {
@@ -35,6 +35,4 @@ nav {
   align-items: center;
 }
 .login-block {
-  position: absolute;
-  right: 156px;
 }
