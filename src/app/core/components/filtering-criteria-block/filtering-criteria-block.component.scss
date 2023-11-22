@@ -3,15 +3,23 @@
   font-size: 15px;
   line-height: 14px;
   display: flex;
+  align-items: center;
   gap: 20px;
   &-link {
     cursor: pointer;
     color: #2f80ed;
   }
+  table {
+    th {
+      cursor: pointer;
+      color: #2f80ed;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+    }
+  }
 }
-.current {
-  text-decoration-line: underline;
-}
+
 button {
   border: none;
   background: transparent;

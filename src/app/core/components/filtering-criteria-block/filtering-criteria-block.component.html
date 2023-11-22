@@ -1,17 +1,11 @@
 <div class="filter">
   <span class="label">Sorting by:</span>
-  <a
-    [ngClass]="{ current: sortingService.sortOptions.type === 'date' }"
-    class="filter-link"
-    (click)="handleSorting('date')"
-    >date</a
-  >
-  <a
-    [ngClass]="{ current: sortingService.sortOptions.type === 'views' }"
-    class="filter-link"
-    (click)="handleSorting('views')"
-    >count of views</a
-  >
+  <table matSort (matSortChange)="sortData($event)">
+    <tr>
+      <th mat-sort-header="date">date</th>
+      <th mat-sort-header="views">views</th>
+    </tr>
+  </table>
   <span class="colored">by word or sentance</span>
   <input type="text" class="input" [(ngModel)]="filteringService.filterWord" />
 </div>

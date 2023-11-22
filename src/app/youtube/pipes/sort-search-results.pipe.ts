@@ -1,16 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core'
+import { Sort } from '@angular/material/sort'
 
 import { SearchItem } from '../models/search-item.model'
-import { SortingOptions, SortType } from '../models/sorting.model'
 
 @Pipe({
   name: 'sortSearchResults',
 })
 export class SortSearchResultsPipe implements PipeTransform {
-  public transform(
-    items: SearchItem[],
-    sortingOptions?: SortingOptions
-  ): SearchItem[] {
+  public transform(items: SearchItem[], sortingOptions?: Sort): SearchItem[] {
     if (!items || !sortingOptions) {
       return items
     }
@@ -19,8 +16,8 @@ export class SortSearchResultsPipe implements PipeTransform {
 
     return sortedItems.sort((a, b) => {
       const directionFactor = sortingOptions.direction === 'asc' ? 1 : -1
-      const valueA = this.getValueToSortBy(a, sortingOptions.type)
-      const valueB = this.getValueToSortBy(b, sortingOptions.type)
+      const valueA = this.getValueToSortBy(a, sortingOptions.active)
+      const valueB = this.getValueToSortBy(b, sortingOptions.active)
 
       if (valueA < valueB) {
         return -1 * directionFactor
@@ -32,7 +29,7 @@ export class SortSearchResultsPipe implements PipeTransform {
     })
   }
 
-  private getValueToSortBy(item: SearchItem, sortType: SortType) {
+  private getValueToSortBy(item: SearchItem, sortType: string) {
     switch (sortType) {
       case 'date':
         return new Date(item.snippet.publishedAt)

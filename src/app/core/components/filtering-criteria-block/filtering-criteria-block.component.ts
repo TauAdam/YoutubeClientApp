@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
+import { Sort } from '@angular/material/sort'
 
-import { SortType } from '../../../youtube/models/sorting.model'
 import { FilteringService } from '../../../youtube/services/filtering/filtering.service'
 import { SortingService } from '../../../youtube/services/sorting/sorting.service'
 
@@ -15,7 +15,7 @@ export class FilteringCriteriaBlockComponent {
     protected sortingService: SortingService
   ) {}
 
-  protected handleSorting(type: SortType) {
-    this.sortingService.handleSortChange(type)
+  protected sortData(sort: Sort) {
+    this.sortingService.handleSortChange(sort)
   }
 }

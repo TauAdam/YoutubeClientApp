@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
+import { MatSortModule } from '@angular/material/sort'
 
 import { CustomButtonComponent } from '../custom-button/custom-button.component'
 import { FilteringCriteriaBlockComponent } from './components/filtering-criteria-block/filtering-criteria-block.component'
@@ -19,7 +20,13 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     LogoComponent,
     NotFoundPageComponent,
   ],
-  imports: [CommonModule, FormsModule, MatIconModule, CustomButtonComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatIconModule,
+    MatSortModule,
+    CustomButtonComponent,
+  ],
   exports: [HeaderComponent],
   providers: [PermissionsService],
 })
