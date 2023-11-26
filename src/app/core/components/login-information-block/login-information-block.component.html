@@ -1,0 +1,7 @@
+<div>
+  <span>{{ loginService.currentUsername }}</span>
+  <mat-icon>account_circle</mat-icon>
+  <app-custom-button (click)="loginService.logout()">
+    <mat-icon>exit_to_app</mat-icon>
+  </app-custom-button>
+</div>

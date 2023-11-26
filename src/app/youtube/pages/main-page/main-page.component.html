@@ -1,0 +1,7 @@
+<app-search-results
+  [items]="
+    searchItems
+      | textFilter: filteringService.filterWord
+      | sortSearchResults: sortingService.sortOptions
+  "
+  *ngIf="youtubeService.searchTag$ | async"></app-search-results>
