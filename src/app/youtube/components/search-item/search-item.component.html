@@ -1,0 +1,29 @@
+<mat-card class="search-item" [appColoredBorder]="item.snippet.publishedAt">
+  <mat-card-content class="search-item__content">
+    <img
+      [src]="item.snippet.thumbnails.medium.url"
+      [alt]="item.snippet.title" />
+    <div class="stats-bar">
+      <div class="stats-bar-item">
+        <mat-icon>visibility</mat-icon>
+        <span>{{ item.statistics.viewCount }}</span>
+      </div>
+      <div class="stats-bar-item">
+        <mat-icon>thumb_up</mat-icon>
+        <span>{{ item.statistics.likeCount }}</span>
+      </div>
+      <div class="stats-bar-item">
+        <mat-icon>thumb_down</mat-icon>
+        <span>{{ item.statistics.dislikeCount }}</span>
+      </div>
+      <div class="stats-bar-item">
+        <mat-icon>forum</mat-icon>
+        <span>{{ item.statistics.commentCount }}</span>
+      </div>
+    </div>
+    <p class="title">{{ item.snippet.title }}</p>
+    <app-custom-button [routerLink]="item.id" classNames="more-button"
+      >more...</app-custom-button
+    >
+  </mat-card-content>
+</mat-card>
