@@ -13,7 +13,7 @@ export class HeaderComponent {
   public constructor(private youtubeService: YoutubeSearchService) {}
 
   protected submitForm(value: string) {
-    this.youtubeService.searchByTag(value)
+    this.youtubeService.searchTagSubject.next(value)
   }
 
   protected toggleSortingBlock() {

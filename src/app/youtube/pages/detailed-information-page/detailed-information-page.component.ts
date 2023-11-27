@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 
-import { SearchItem } from '../../models/search-item.model'
+import { Video } from '../../models/search-response.model'
 import { YoutubeSearchService } from '../../services/youtube/youtube-search.service'
 
 @Component({
@@ -11,7 +11,7 @@ import { YoutubeSearchService } from '../../services/youtube/youtube-search.serv
   styleUrls: ['./detailed-information-page.component.scss'],
 })
 export class DetailedInformationPageComponent implements OnInit, OnDestroy {
-  protected selectedVideo!: SearchItem
+  protected selectedVideo?: Video
 
   private destroy$ = new Subject<void>()
 
@@ -35,9 +35,8 @@ export class DetailedInformationPageComponent implements OnInit, OnDestroy {
   }
 
   protected onSelectVideo(id: string) {
-    const videoSelectionResult = this.youtubeService.getSelectedVideo(id)
-    if (videoSelectionResult) {
+    this.youtubeService.getVideos(id).subscribe(([videoSelectionResult]) => {
       this.selectedVideo = videoSelectionResult
-    }
+    })
   }
 }
