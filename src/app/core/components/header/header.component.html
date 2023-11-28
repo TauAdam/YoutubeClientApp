@@ -4,16 +4,12 @@
       <app-logo></app-logo>
       <div class="search-block">
         <input
-          #searchInput
+          [(ngModel)]="inputText"
+          (ngModelChange)="searchQuery$.next($event)"
           class="search-input"
           type="search"
           matInput
           placeholder="What are you want to find out?" />
-        <app-custom-button
-          (click)="submitForm(searchInput.value)"
-          classNames="search-btn">
-          search
-        </app-custom-button>
       </div>
       <img
         class="search-settings"

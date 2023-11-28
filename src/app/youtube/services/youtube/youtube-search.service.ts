@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { map, Subject, switchMap } from 'rxjs'
+import { Subject } from 'rxjs'
+import { map, switchMap } from 'rxjs/operators'
 
 import {
   SearchResponse,
@@ -16,9 +17,9 @@ const enum Endpoint {
   providedIn: 'root',
 })
 export class YoutubeSearchService {
-  public searchTagSubject = new Subject<string>()
+  public showResults = false
 
-  public searchTag$ = this.searchTagSubject.asObservable()
+  public searchTagSubject = new Subject<string>()
 
   public constructor(private http: HttpClient) {}
 
