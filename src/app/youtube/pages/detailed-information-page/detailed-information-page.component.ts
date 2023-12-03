@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subject, takeUntil } from 'rxjs'
+import { Subject, switchMap, takeUntil } from 'rxjs'
 
 import { Video } from '../../models/search-response.model'
 import { YoutubeSearchService } from '../../services/youtube/youtube-search.service'
@@ -21,22 +21,24 @@ export class DetailedInformationPageComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      const itemId = params['id']
-      if (itemId) {
-        this.onSelectVideo(itemId)
-      }
-    })
+    this.route.params
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(params => {
+          const itemId = params['id']
+          if (itemId) {
+            return this.youtubeService.getVideos(itemId)
+          }
+          return []
+        })
+      )
+      .subscribe(([videoSelectionResult]) => {
+        this.selectedVideo = videoSelectionResult
+      })
   }
 
   public ngOnDestroy() {
     this.destroy$.next()
     this.destroy$.complete()
-  }
-
-  protected onSelectVideo(id: string) {
-    this.youtubeService.getVideos(id).subscribe(([videoSelectionResult]) => {
-      this.selectedVideo = videoSelectionResult
-    })
   }
 }

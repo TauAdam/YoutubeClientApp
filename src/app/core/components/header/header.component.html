@@ -5,7 +5,7 @@
       <div class="search-block">
         <input
           [(ngModel)]="inputText"
-          (ngModelChange)="searchQuery$.next($event)"
+          (ngModelChange)="onSearchQueryChange($event)"
           class="search-input"
           type="search"
           matInput

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core'
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs'
+import { Component } from '@angular/core'
 
 import { YoutubeSearchService } from '../../../youtube/services/youtube/youtube-search.service'
 
@@ -8,12 +7,10 @@ import { YoutubeSearchService } from '../../../youtube/services/youtube/youtube-
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   protected isFilteringBlockVisible = false
 
   protected inputText = ''
-
-  protected searchQuery$ = new Subject<string>()
 
   public constructor(private youtubeService: YoutubeSearchService) {}
 
@@ -21,14 +18,8 @@ export class HeaderComponent implements OnInit {
     this.isFilteringBlockVisible = !this.isFilteringBlockVisible
   }
 
-  public ngOnInit(): void {
-    this.searchQuery$
-      .pipe(debounceTime(1000), distinctUntilChanged())
-      .subscribe(value => {
-        if (value.length >= 3) {
-          this.youtubeService.searchTagSubject.next(value)
-          this.youtubeService.showResults = true
-        }
-      })
+  protected onSearchQueryChange(query: string): void {
+    this.youtubeService.setSearchQuery(query)
+    this.youtubeService.showResults = true
   }
 }

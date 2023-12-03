@@ -1,7 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
-import { map, switchMap } from 'rxjs/operators'
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators'
 
 import {
   SearchResponse,
@@ -21,7 +27,18 @@ export class YoutubeSearchService {
 
   public searchTagSubject = new Subject<string>()
 
+  public videos$ = this.searchTagSubject.pipe(
+    debounceTime(1000),
+    distinctUntilChanged(),
+    filter(value => value.length >= 3),
+    switchMap(searchTag => this.getSearchVideos(searchTag))
+  )
+
   public constructor(private http: HttpClient) {}
+
+  public setSearchQuery(query: string) {
+    this.searchTagSubject.next(query)
+  }
 
   public getVideos(id: string) {
     const params = new HttpParams()
@@ -30,10 +47,6 @@ export class YoutubeSearchService {
     return this.http
       .get<VideosResponse>(Endpoint.VIDEOS, { params })
       .pipe(map(res => res.items))
-  }
-
-  public getSearchVideos$() {
-    return this.searchTagSubject.pipe(map(value => this.getSearchVideos(value)))
   }
 
   private getSearchVideos(query: string) {
