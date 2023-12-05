@@ -10,13 +10,16 @@ import { YoutubeSearchService } from '../../../youtube/services/youtube/youtube-
 export class HeaderComponent {
   protected isFilteringBlockVisible = false
 
-  public constructor(private youtubeService: YoutubeSearchService) {}
+  protected inputText = ''
 
-  protected submitForm(value: string) {
-    this.youtubeService.searchByTag(value)
-  }
+  public constructor(private youtubeService: YoutubeSearchService) {}
 
   protected toggleSortingBlock() {
     this.isFilteringBlockVisible = !this.isFilteringBlockVisible
+  }
+
+  protected onSearchQueryChange(query: string): void {
+    this.youtubeService.setSearchQuery(query)
+    this.youtubeService.showResults = true
   }
 }

@@ -1,28 +1,63 @@
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators'
 
-import { mockedData } from '../../../../assets/response'
-import { SearchResponse } from '../../models/search-response.model'
+import {
+  SearchResponse,
+  VideosResponse,
+} from '../../models/search-response.model'
+
+const enum Endpoint {
+  VIDEOS = 'videos',
+  SEARCH = 'search',
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class YoutubeSearchService {
-  private searchRes: SearchResponse = mockedData
+  public showResults = false
 
-  private searchTagSubject = new Subject<string>()
+  public searchTagSubject = new Subject<string>()
 
-  public searchTag$ = this.searchTagSubject.asObservable()
+  public videos$ = this.searchTagSubject.pipe(
+    debounceTime(1000),
+    distinctUntilChanged(),
+    filter(value => value.length >= 3),
+    switchMap(searchTag => this.getSearchVideos(searchTag))
+  )
 
-  public searchByTag(tag: string) {
-    this.searchTagSubject.next(`${tag} `)
+  public constructor(private http: HttpClient) {}
+
+  public setSearchQuery(query: string) {
+    this.searchTagSubject.next(query)
   }
 
-  public getSearchItems() {
-    return this.searchRes.items
+  public getVideos(id: string) {
+    const params = new HttpParams()
+      .set('id', id)
+      .set('part', 'snippet,statistics')
+    return this.http
+      .get<VideosResponse>(Endpoint.VIDEOS, { params })
+      .pipe(map(res => res.items))
   }
 
-  public getSelectedVideo(id: string) {
-    return this.searchRes.items.find(item => item.id === id)
+  private getSearchVideos(query: string) {
+    const params = new HttpParams()
+      .set('type', 'video')
+      .set('part', 'snippet')
+      .set('maxResults', '15')
+      .set('q', query)
+    return this.http.get<SearchResponse>(Endpoint.SEARCH, { params }).pipe(
+      map(res => res.items.map(el => el.id.videoId).join(',')),
+      switchMap(idString => this.getVideos(idString))
+    )
   }
 }
