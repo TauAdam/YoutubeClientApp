@@ -29,8 +29,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
+    this.subscription?.unsubscribe()
   }
 }
