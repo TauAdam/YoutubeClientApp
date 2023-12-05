@@ -1,0 +1,27 @@
+<header>
+  <nav>
+    <div class="toolbar">
+      <app-logo></app-logo>
+      <div class="search-block">
+        <input
+          [(ngModel)]="inputText"
+          (ngModelChange)="onSearchQueryChange($event)"
+          class="search-input"
+          type="search"
+          matInput
+          placeholder="What are you want to find out?" />
+      </div>
+      <img
+        class="search-settings"
+        (click)="toggleSortingBlock()"
+        src="assets/search_settings.svg"
+        alt="search_settings" />
+    </div>
+    <div class="login-block">
+      <app-login-information-block></app-login-information-block>
+    </div>
+  </nav>
+  <div class="filter-block" *ngIf="isFilteringBlockVisible">
+    <app-filtering-criteria-block></app-filtering-criteria-block>
+  </div>
+</header>

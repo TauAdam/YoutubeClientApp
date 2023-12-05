@@ -1,9 +1,4 @@
-<app-header
-  (searchQuery)="showResultItems($event)"
-  (filterWord)="handleFilterChange($event)"
-  (sorting)="handleSortChange($event)"></app-header>
-<app-search-results
-  [items]="
-    searchItems | textFilter: textForFilter | sortSearchResults: sortOptions
-  "
-  *ngIf="searchTag"></app-search-results>
+<app-header></app-header>
+<main>
+  <router-outlet></router-outlet>
+</main>
