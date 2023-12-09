@@ -37,39 +37,39 @@ export class LoginPageComponent {
 
   private customPasswordValidator() {
     return (control: AbstractControl) => {
-      const { value } = control
+      const value = control?.value as string
 
       const hasMinLength = value?.length >= 8
-
-      const hasUpperCase = /[A-Z]/.test(value)
-      const hasLowerCase = /[a-z]/.test(value)
-
+      const hasMixtureOfCases = /[A-Z]/.test(value) && /[a-z]/.test(value)
       const hasLettersAndNumbers = /[a-zA-Z]+.*\d+|\d+.*[a-zA-Z]+/.test(value)
-
       const hasSpecialCharacter = /[!@#?]/.test(value)
 
       const isValid =
         hasMinLength &&
-        hasUpperCase &&
-        hasLowerCase &&
+        hasMixtureOfCases &&
         hasLettersAndNumbers &&
         hasSpecialCharacter
 
-      if (!isValid) {
-        return {
-          passwordStrength: {
-            message: "Your password isn't strong enough",
-            recommendations: [
-              'Use at least 8 characters',
-              'Include a mixture of uppercase and lowercase letters',
-              'Include a mixture of letters and numbers',
-              'Include at least one special character (!@#?)',
-            ],
-          },
-        }
-      }
+      const recommendations = []
 
-      return null
+      if (!hasMinLength) recommendations.push('Use at least 8 characters')
+      if (!hasMixtureOfCases)
+        recommendations.push(
+          'Include a mixture of uppercase and lowercase letters'
+        )
+      if (!hasLettersAndNumbers)
+        recommendations.push('Include a mixture of letters and numbers')
+      if (!hasSpecialCharacter)
+        recommendations.push('Include at least one special character (! @ # ?)')
+
+      return isValid
+        ? null
+        : {
+            passwordStrength: {
+              message: "Your password isn't strong enough",
+              recommendations,
+            },
+          }
     }
   }
 }
