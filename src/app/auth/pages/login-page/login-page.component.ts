@@ -39,7 +39,7 @@ export class LoginPageComponent {
     return (control: AbstractControl) => {
       const { value } = control
 
-      const hasMinLength = value.length >= 8
+      const hasMinLength = value?.length >= 8
 
       const hasUpperCase = /[A-Z]/.test(value)
       const hasLowerCase = /[a-z]/.test(value)
