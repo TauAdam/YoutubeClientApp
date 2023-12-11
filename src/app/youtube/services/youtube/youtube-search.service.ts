@@ -6,6 +6,7 @@ import {
   distinctUntilChanged,
   filter,
   map,
+  shareReplay,
   switchMap,
 } from 'rxjs/operators'
 
@@ -31,7 +32,8 @@ export class YoutubeSearchService {
     debounceTime(1000),
     distinctUntilChanged(),
     filter(value => value.length >= 3),
-    switchMap(searchTag => this.getSearchVideos(searchTag))
+    switchMap(searchTag => this.getSearchVideos(searchTag)),
+    shareReplay(1)
   )
 
   public constructor(private http: HttpClient) {}

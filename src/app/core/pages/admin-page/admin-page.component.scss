@@ -63,10 +63,16 @@ label {
 }
 .btn-block {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .alert {
   color: red;
   margin-top: 5px;
+}
+.tag-row {
+  input {
+    background: #c2c2c2;
+    border-radius: 20px;
+  }
 }

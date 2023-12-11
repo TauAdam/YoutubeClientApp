@@ -1,10 +1,22 @@
 <div class="wrapper">
   <div class="title">Login</div>
-  <form [formGroup]="loginForm" class="form" (ngSubmit)="handleSubmit()">
+  <form
+    [formGroup]="loginForm"
+    novalidate
+    class="form"
+    (ngSubmit)="loginForm.valid && handleSubmit()">
     <div class="fields">
       <div class="field">
         <label for="login">login</label>
         <input id="login" formControlName="username" autocomplete="username" />
+        <div
+          *ngIf="email?.invalid && (email?.touched || email?.dirty)"
+          class="alert">
+          <div *ngIf="email?.errors?.['required']">
+            Please enter a login email
+          </div>
+          <div *ngIf="email?.errors?.['email']">The login email is invalid</div>
+        </div>
       </div>
       <div class="field">
         <label for="password">password</label>
@@ -13,10 +25,29 @@
           id="password"
           formControlName="password"
           autocomplete="current-password" />
+        <div
+          *ngIf="password?.invalid && (password?.touched || password?.dirty)"
+          class="alert">
+          <div *ngIf="password?.errors?.['required']">
+            Please enter a password
+          </div>
+          <div *ngIf="password?.errors?.['passwordStrength']">
+            {{ password?.errors?.['passwordStrength'].message }}
+            <ul>
+              <li
+                *ngFor="
+                  let recommendation of password?.errors?.['passwordStrength']
+                    .recommendations
+                ">
+                {{ recommendation }}
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="btn-block">
-      <app-custom-button classNames="login-btn">Login</app-custom-button>
+      <app-custom-button classNames="submit-btn">Login</app-custom-button>
     </div>
   </form>
 </div>
