@@ -9,6 +9,7 @@ import { FilteringCriteriaBlockComponent } from './components/filtering-criteria
 import { HeaderComponent } from './components/header/header.component'
 import { LoginInformationBlockComponent } from './components/login-information-block/login-information-block.component'
 import { LogoComponent } from './components/logo/logo.component'
+import { CoreRoutingModule } from './core-routing.module'
 import { PermissionsService } from './guards/auth.guard'
 import { AdminPageComponent } from './pages/admin-page/admin-page.component'
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component'
@@ -29,6 +30,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     MatSortModule,
     CustomButtonComponent,
     ReactiveFormsModule,
+    CoreRoutingModule,
   ],
   exports: [HeaderComponent],
   providers: [PermissionsService],
