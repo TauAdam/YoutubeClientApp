@@ -1,0 +1,10 @@
+<div>
+  <span>{{ loginService.currentUsername }}</span>
+  <mat-icon>account_circle</mat-icon>
+  <app-custom-button *ngIf="isAuthorized" (click)="changeStatus()">
+    <mat-icon>exit_to_app</mat-icon>
+  </app-custom-button>
+  <app-custom-button *ngIf="!isAuthorized" (click)="changeStatus()">
+    <mat-icon>login</mat-icon>
+  </app-custom-button>
+</div>

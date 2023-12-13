@@ -1,0 +1,95 @@
+<div class="wrapper">
+  <div class="title">Create new card</div>
+  <form
+    [formGroup]="cardCreationForm"
+    novalidate
+    class="form"
+    (ngSubmit)="cardCreationForm.valid && handleSubmit()">
+    <div class="fields">
+      <div class="field">
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" autocomplete="title" />
+        <div
+          *ngIf="title?.invalid && (title?.touched || title?.dirty)"
+          class="alert">
+          <div *ngIf="title?.errors?.['required']">
+            Please enter a title title
+          </div>
+          <div *ngIf="title?.errors?.['minlength']">The title is too short</div>
+          <div *ngIf="title?.errors?.['maxlength']">The title is too long</div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="desc">Description</label>
+        <input id="desc" formControlName="desc" autocomplete="desc" />
+        <div
+          *ngIf="desc?.invalid && (desc?.touched || desc?.dirty)"
+          class="alert">
+          <div *ngIf="desc?.errors?.['maxlength']">
+            The description is too long
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="image">Img</label>
+        <input id="image" formControlName="imageCover" autocomplete="image" />
+        <div
+          *ngIf="image?.invalid && (image?.touched || image?.dirty)"
+          class="alert">
+          <div *ngIf="image?.errors?.['required']">
+            Please enter a link to the image
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="video">Link video</label>
+        <input id="video" formControlName="video" autocomplete="video" />
+        <div
+          *ngIf="video?.invalid && (video?.touched || video?.dirty)"
+          class="alert">
+          <div *ngIf="video?.errors?.['required']">
+            Please enter a link to the video
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="date">Date</label>
+        <input
+          type="date"
+          id="date"
+          formControlName="date"
+          autocomplete="date" />
+        <div
+          *ngIf="date?.invalid && (date?.touched || date?.dirty)"
+          class="alert">
+          <div *ngIf="date?.errors?.['required']">
+            Please enter a creation date
+          </div>
+          <div *ngIf="date?.errors?.['invalidDate']">The date is invalid</div>
+        </div>
+      </div>
+      <div class="field" formArrayName="tags">
+        <label>Tags</label>
+        <ng-container *ngFor="let tag of tags['controls']; let i = index">
+          <div class="tag-row">
+            <input formControlName="{{ i }}" />
+            <div
+              *ngIf="tag?.invalid && (tag?.touched || tag?.dirty)"
+              class="alert">
+              <div *ngIf="tag?.errors?.['required']">
+                Please enter a creation tag
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <mat-icon (click)="addTag()">add</mat-icon>
+      </div>
+    </div>
+    <div class="btn-block">
+      <app-custom-button (click)="resetForm()" classNames="submit-btn"
+        >Reset</app-custom-button
+      >
+      <app-custom-button classNames="submit-btn">Create</app-custom-button>
+    </div>
+  </form>
+</div>
