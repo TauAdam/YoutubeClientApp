@@ -1,16 +1,21 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
-import { NgModule } from '@angular/core'
+import { isDevMode, NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { EffectsModule } from '@ngrx/effects'
+import { StoreModule } from '@ngrx/store'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import { CoreModule } from './core/core.module'
 import { CustomButtonComponent } from './custom-button/custom-button.component'
+import { AdminReducer } from './redux/reducers/custom.reducer'
+import { reducers } from './redux/state.models'
 import { AuthInterceptor } from './youtube/interceptors/auth.interceptor'
 
 @NgModule({
@@ -26,6 +31,10 @@ import { AuthInterceptor } from './youtube/interceptors/auth.interceptor'
     CoreModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    StoreModule.forRoot(reducers),
+    StoreModule.forFeature('adminPage', AdminReducer),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
