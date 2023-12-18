@@ -9,7 +9,7 @@ import {
 } from '@angular/forms'
 import { Store } from '@ngrx/store'
 
-import { createCustomCard } from '../../../redux/actions'
+import { createCustomCard } from '../../../redux/actions/custom-cards.actions.'
 import { Video } from '../../../youtube/models/search-response.model'
 
 interface CardCreationFormValues {
@@ -60,7 +60,7 @@ export class AdminPageComponent {
   protected handleSubmit() {
     this.store.dispatch(
       createCustomCard({
-        item: this.transformValues(this.cardCreationForm.value),
+        newItem: this.transformValues(this.cardCreationForm.value),
       })
     )
     this.resetForm()
@@ -88,7 +88,6 @@ export class AdminPageComponent {
           },
           high: { height: 0, url: values.imageCover, width: 0 },
           maxres: { height: 0, url: values.imageCover, width: 0 },
-
           medium: { height: 0, url: values.imageCover, width: 0 },
           standard: { height: 0, url: values.imageCover, width: 0 },
         },

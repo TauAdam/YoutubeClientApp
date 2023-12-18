@@ -1,6 +1,9 @@
 import { Component } from '@angular/core'
+import { FormControl } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs'
 
-import { YoutubeSearchService } from '../../../youtube/services/youtube/youtube-search.service'
+import { changeQuery } from '../../../redux/actions/youtube.actions'
 
 @Component({
   selector: 'app-header',
@@ -10,16 +13,21 @@ import { YoutubeSearchService } from '../../../youtube/services/youtube/youtube-
 export class HeaderComponent {
   protected isFilteringBlockVisible = false
 
-  protected inputText = ''
+  protected inputText = new FormControl('', { nonNullable: true })
 
-  public constructor(private youtubeService: YoutubeSearchService) {}
+  public constructor(private store: Store) {
+    this.inputText.valueChanges
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        filter(value => value.length >= 3)
+      )
+      .subscribe(newQuery => {
+        this.store.dispatch(changeQuery({ newQuery }))
+      })
+  }
 
   protected toggleSortingBlock() {
     this.isFilteringBlockVisible = !this.isFilteringBlockVisible
-  }
-
-  protected onSearchQueryChange(query: string): void {
-    this.youtubeService.setSearchQuery(query)
-    this.youtubeService.showResults = true
   }
 }

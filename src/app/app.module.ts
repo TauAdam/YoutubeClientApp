@@ -14,7 +14,9 @@ import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import { CoreModule } from './core/core.module'
 import { CustomButtonComponent } from './custom-button/custom-button.component'
-import { AdminReducer } from './redux/reducers/custom.reducer'
+import { YoutubeEffects } from './redux/effects/youtube.effects'
+import { AdminReducer } from './redux/reducers/custom-cards.reducer'
+import { YoutubeReducer } from './redux/reducers/youtube.reducer'
 import { reducers } from './redux/state.models'
 import { AuthInterceptor } from './youtube/interceptors/auth.interceptor'
 
@@ -32,9 +34,10 @@ import { AuthInterceptor } from './youtube/interceptors/auth.interceptor'
     BrowserAnimationsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
-    StoreModule.forFeature('adminPage', AdminReducer),
+    StoreModule.forFeature('admin', AdminReducer),
+    StoreModule.forFeature('youtube', YoutubeReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([YoutubeEffects]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -1,7 +1,8 @@
+<mat-spinner *ngIf="progress | async"></mat-spinner>
+
 <app-search-results
   [items]="
-    searchItems || []
+    videoItems || []
       | textFilter: filteringService.filterWord
       | sortSearchResults: sortingService.sortOptions
-  "
-  *ngIf="youtubeService.showResults"></app-search-results>
+  "></app-search-results>

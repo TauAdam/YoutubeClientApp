@@ -2,11 +2,11 @@ import { createAction, props } from '@ngrx/store'
 
 import { Video } from '../../youtube/models/search-response.model'
 
-export enum CustomCard {
-  CREATE = '[Admin] Create',
+export enum ADMIN {
+  CREATE = '[Admin] Create new card',
 }
 
 export const createCustomCard = createAction(
-  CustomCard.CREATE,
-  props<{ item: Video }>()
+  ADMIN.CREATE,
+  props<{ newItem: Video }>()
 )

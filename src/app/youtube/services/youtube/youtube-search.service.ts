@@ -1,15 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Subject } from 'rxjs'
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  shareReplay,
-  switchMap,
-} from 'rxjs/operators'
+import { Store } from '@ngrx/store'
+import { map, shareReplay, switchMap } from 'rxjs/operators'
 
+import { selectYoutubeSearch } from '../../../redux/selectors/youtube.selector'
 import {
   SearchResponse,
   VideosResponse,
@@ -24,23 +18,10 @@ const enum Endpoint {
   providedIn: 'root',
 })
 export class YoutubeSearchService {
-  public showResults = false
-
-  public searchTagSubject = new Subject<string>()
-
-  public videos$ = this.searchTagSubject.pipe(
-    debounceTime(1000),
-    distinctUntilChanged(),
-    filter(value => value.length >= 3),
-    switchMap(searchTag => this.getSearchVideos(searchTag)),
-    shareReplay(1)
-  )
-
-  public constructor(private http: HttpClient) {}
-
-  public setSearchQuery(query: string) {
-    this.searchTagSubject.next(query)
-  }
+  public constructor(
+    private http: HttpClient,
+    private store: Store
+  ) {}
 
   public getVideos(id: string) {
     const params = new HttpParams()
@@ -49,6 +30,13 @@ export class YoutubeSearchService {
     return this.http
       .get<VideosResponse>(Endpoint.VIDEOS, { params })
       .pipe(map(res => res.items))
+  }
+
+  public getYoutubeVideos() {
+    return this.store.select(selectYoutubeSearch).pipe(
+      switchMap(searchTag => this.getSearchVideos(searchTag)),
+      shareReplay(1)
+    )
   }
 
   private getSearchVideos(query: string) {

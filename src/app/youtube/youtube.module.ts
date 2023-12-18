@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 import { CustomButtonComponent } from '../custom-button/custom-button.component'
 import { SearchBarComponent } from './components/search-bar/search-bar.component'
@@ -29,6 +30,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module'
     CommonModule,
     MatIconModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     CustomButtonComponent,
     YoutubeRoutingModule,
   ],

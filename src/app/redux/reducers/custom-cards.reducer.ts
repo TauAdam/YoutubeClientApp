@@ -1,21 +1,21 @@
 import { createReducer, on } from '@ngrx/store'
 import { Video } from 'src/app/youtube/models/search-response.model'
 
-import { createCustomCard } from '../actions'
+import { createCustomCard } from '../actions/custom-cards.actions.'
 
 export interface AdminPageState {
-  items: Video[]
+  customCards: Video[]
 }
 const initialState: AdminPageState = {
-  items: [],
+  customCards: [],
 }
 export const AdminReducer = createReducer(
   initialState,
   on(
     createCustomCard,
-    (state, { item }): AdminPageState => ({
+    (state, { newItem }): AdminPageState => ({
       ...state,
-      items: [...state.items, item],
+      customCards: [...state.customCards, newItem],
     })
   )
 )
