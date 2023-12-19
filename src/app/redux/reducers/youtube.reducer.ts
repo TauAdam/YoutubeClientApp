@@ -11,11 +11,13 @@ export interface YoutubePageState {
   videos: Video[]
   searchQuery: string
   progress: boolean
+  error: string
 }
 const initialState: YoutubePageState = {
   videos: [],
   searchQuery: '',
   progress: false,
+  error: '',
 }
 export const YoutubeReducer = createReducer(
   initialState,
@@ -35,11 +37,12 @@ export const YoutubeReducer = createReducer(
       progress: true,
     })
   ),
-  on(getYoutubeError, (state, { newError }): YoutubePageState => {
-    console.log(newError)
-    return {
+  on(
+    getYoutubeError,
+    (state, { newError }): YoutubePageState => ({
       ...state,
       progress: false,
-    }
-  })
+      error: newError,
+    })
+  )
 )

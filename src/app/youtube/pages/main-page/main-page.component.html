@@ -1,5 +1,8 @@
 <mat-spinner *ngIf="progress | async"></mat-spinner>
-
+<div *ngIf="error | async" class="error-container">
+  <mat-icon class="error-icon">error</mat-icon>
+  <p>An error occurred. Please try again later.</p>
+</div>
 <app-search-results
   [items]="
     videoItems || []

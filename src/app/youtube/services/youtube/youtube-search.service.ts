@@ -29,7 +29,7 @@ export class YoutubeSearchService {
       .set('part', 'snippet,statistics')
     return this.http
       .get<VideosResponse>(Endpoint.VIDEOS, { params })
-      .pipe(map(res => res.items))
+      .pipe(map(res => res.items.map(el => ({ ...el, custom: false }))))
   }
 
   public getYoutubeVideos() {

@@ -4,6 +4,7 @@ import { combineLatest, map, Subscription } from 'rxjs'
 
 import { selectCustomCards } from '../../../redux/selectors/custom-cards.selector.'
 import {
+  selectYoutubeError,
   selectYoutubeProgress,
   selectYoutubeVideos,
 } from '../../../redux/selectors/youtube.selector'
@@ -23,6 +24,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private subscription?: Subscription
 
   protected progress = this.store.select(selectYoutubeProgress)
+
+  protected error = this.store.select(selectYoutubeError)
 
   public constructor(
     protected youtubeService: YoutubeSearchService,

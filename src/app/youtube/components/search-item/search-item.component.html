@@ -25,5 +25,8 @@
     <app-custom-button [routerLink]="item.id" classNames="more-button"
       >more...</app-custom-button
     >
+    <app-delete-button
+      *ngIf="item.custom"
+      [customCardId]="item.id"></app-delete-button>
   </mat-card-content>
 </mat-card>

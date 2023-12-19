@@ -13,11 +13,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import { CoreModule } from './core/core.module'
-import { CustomButtonComponent } from './custom-button/custom-button.component'
 import { YoutubeEffects } from './redux/effects/youtube.effects'
 import { AdminReducer } from './redux/reducers/custom-cards.reducer'
 import { YoutubeReducer } from './redux/reducers/youtube.reducer'
 import { reducers } from './redux/state.models'
+import { CustomButtonComponent } from './shared/custom-button/custom-button.component'
 import { AuthInterceptor } from './youtube/interceptors/auth.interceptor'
 
 @NgModule({

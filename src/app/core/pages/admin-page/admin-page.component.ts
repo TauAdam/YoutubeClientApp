@@ -68,6 +68,7 @@ export class AdminPageComponent {
 
   private transformValues(values: CardCreationFormValues) {
     const transformedValues: Video = {
+      custom: true,
       id: 'your_id_value',
       snippet: {
         categoryId: '0',

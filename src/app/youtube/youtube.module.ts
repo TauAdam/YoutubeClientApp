@@ -4,7 +4,8 @@ import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
-import { CustomButtonComponent } from '../custom-button/custom-button.component'
+import { CustomButtonComponent } from '../shared/custom-button/custom-button.component'
+import { DeleteButtonComponent } from './components/delete-button/delete-button.component'
 import { SearchBarComponent } from './components/search-bar/search-bar.component'
 import { SearchItemComponent } from './components/search-item/search-item.component'
 import { SearchResultsComponent } from './components/search-results/search-results.component'
@@ -25,6 +26,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module'
     TextFilterPipe,
     SortSearchResultsPipe,
     DetailedInformationPageComponent,
+    DeleteButtonComponent,
   ],
   imports: [
     CommonModule,

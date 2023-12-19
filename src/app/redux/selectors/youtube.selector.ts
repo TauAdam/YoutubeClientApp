@@ -16,3 +16,7 @@ export const selectYoutubeProgress = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.progress
 )
+export const selectYoutubeError = createSelector(
+  selectYoutubeFeature,
+  (state: YoutubePageState) => state.error
+)

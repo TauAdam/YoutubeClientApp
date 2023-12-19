@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subject, switchMap, takeUntil } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { map, mergeMap, Subject, takeUntil } from 'rxjs'
 
+import { selectCustomCard } from '../../../redux/selectors/custom-cards.selector.'
 import { Video } from '../../models/search-response.model'
 import { YoutubeSearchService } from '../../services/youtube/youtube-search.service'
 
@@ -17,23 +19,33 @@ export class DetailedInformationPageComponent implements OnInit, OnDestroy {
 
   public constructor(
     private route: ActivatedRoute,
-    private youtubeService: YoutubeSearchService
+    private youtubeService: YoutubeSearchService,
+    private store: Store
   ) {}
 
   public ngOnInit(): void {
     this.route.params
       .pipe(
         takeUntil(this.destroy$),
-        switchMap(params => {
+        mergeMap(params => {
           const itemId = params['id']
-          if (itemId) {
-            return this.youtubeService.getVideos(itemId)
-          }
-          return []
+          const customCard$ = this.store.select(selectCustomCard(itemId))
+
+          return customCard$.pipe(
+            map(custom => (custom ? [custom] : [])),
+            mergeMap(result => {
+              if (result.length > 0) {
+                return result
+              }
+              return this.youtubeService.getVideos(itemId)
+            })
+          )
         })
       )
-      .subscribe(([videoSelectionResult]) => {
-        this.selectedVideo = videoSelectionResult
+      .subscribe(videoSelectionResult => {
+        this.selectedVideo = Array.isArray(videoSelectionResult)
+          ? videoSelectionResult[0]
+          : videoSelectionResult
       })
   }
 
