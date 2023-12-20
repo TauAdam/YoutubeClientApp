@@ -69,7 +69,7 @@ export class AdminPageComponent {
   private transformValues(values: CardCreationFormValues) {
     const transformedValues: Video = {
       custom: true,
-      id: 'your_id_value',
+      id: crypto.randomUUID(),
       snippet: {
         categoryId: '0',
         localized: {
