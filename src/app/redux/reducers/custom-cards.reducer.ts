@@ -1,10 +1,7 @@
 import { createReducer, on } from '@ngrx/store'
 import { Video } from 'src/app/youtube/models/search-response.model'
 
-import {
-  createCustomCard,
-  deleteCustomCard,
-} from '../actions/custom-cards.actions.'
+import * as AdminAction from '../actions/custom-cards.actions'
 
 export interface AdminPageState {
   customCards: Video[]
@@ -15,14 +12,14 @@ const initialState: AdminPageState = {
 export const AdminReducer = createReducer(
   initialState,
   on(
-    createCustomCard,
+    AdminAction.addCard,
     (state, { newItem }): AdminPageState => ({
       ...state,
       customCards: [...state.customCards, newItem],
     })
   ),
   on(
-    deleteCustomCard,
+    AdminAction.deleteCard,
     (state, { id }): AdminPageState => ({
       ...state,
       customCards: state.customCards.filter(card => card.id !== id),

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { map, mergeMap, Subject, takeUntil } from 'rxjs'
 
-import { selectCustomCard } from '../../../redux/selectors/custom-cards.selector.'
+import * as fromAdmin from '../../../redux/selectors/custom-cards.selector'
 import { Video } from '../../models/search-response.model'
 import { YoutubeSearchService } from '../../services/youtube/youtube-search.service'
 
@@ -26,10 +26,11 @@ export class DetailedInformationPageComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.route.params
       .pipe(
-        takeUntil(this.destroy$),
         mergeMap(params => {
           const itemId = params['id']
-          const customCard$ = this.store.select(selectCustomCard(itemId))
+          const customCard$ = this.store.select(
+            fromAdmin.selectCustomCard(itemId)
+          )
 
           return customCard$.pipe(
             map(custom => (custom ? [custom] : [])),
@@ -37,10 +38,11 @@ export class DetailedInformationPageComponent implements OnInit, OnDestroy {
               if (result.length > 0) {
                 return result
               }
-              return this.youtubeService.getVideos(itemId)
+              return this.youtubeService.getVideosById(itemId)
             })
           )
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe(videoSelectionResult => {
         this.selectedVideo = Array.isArray(videoSelectionResult)

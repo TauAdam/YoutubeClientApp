@@ -2,12 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { combineLatest, map, Subscription } from 'rxjs'
 
-import { selectCustomCards } from '../../../redux/selectors/custom-cards.selector.'
-import {
-  selectYoutubeError,
-  selectYoutubeProgress,
-  selectYoutubeVideos,
-} from '../../../redux/selectors/youtube.selector'
+import * as fromAdmin from '../../../redux/selectors/custom-cards.selector'
+import * as fromYoutube from '../../../redux/selectors/youtube.selector'
 import { Video } from '../../models/search-response.model'
 import { FilteringService } from '../../services/filtering/filtering.service'
 import { SortingService } from '../../services/sorting/sorting.service'
@@ -23,9 +19,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   private subscription?: Subscription
 
-  protected progress = this.store.select(selectYoutubeProgress)
+  protected progress = this.store.select(fromYoutube.selectProgress)
 
-  protected error = this.store.select(selectYoutubeError)
+  protected error = this.store.select(fromYoutube.selectError)
 
   public constructor(
     protected youtubeService: YoutubeSearchService,
@@ -35,8 +31,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    const customCards$ = this.store.select(selectCustomCards)
-    const youtubeVideos$ = this.store.select(selectYoutubeVideos)
+    const customCards$ = this.store.select(fromAdmin.selectCustomCards)
+    const youtubeVideos$ = this.store.select(fromYoutube.selectVideos)
 
     this.subscription = combineLatest([customCards$, youtubeVideos$])
       .pipe(

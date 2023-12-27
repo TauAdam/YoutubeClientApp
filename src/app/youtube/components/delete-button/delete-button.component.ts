@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { Store } from '@ngrx/store'
 
-import { deleteCustomCard } from '../../../redux/actions/custom-cards.actions.'
+import * as AdminAction from '../../../redux/actions/custom-cards.actions'
 
 @Component({
   selector: 'app-delete-button',
@@ -14,6 +14,6 @@ export class DeleteButtonComponent {
   public constructor(private store: Store) {}
 
   protected onDeleteCard(id: string): void {
-    this.store.dispatch(deleteCustomCard({ id }))
+    this.store.dispatch(AdminAction.deleteCard({ id }))
   }
 }

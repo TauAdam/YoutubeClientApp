@@ -9,7 +9,7 @@ import {
 } from '@angular/forms'
 import { Store } from '@ngrx/store'
 
-import { createCustomCard } from '../../../redux/actions/custom-cards.actions.'
+import * as AdminAction from '../../../redux/actions/custom-cards.actions'
 import { Video } from '../../../youtube/models/search-response.model'
 
 interface CardCreationFormValues {
@@ -59,7 +59,7 @@ export class AdminPageComponent {
 
   protected handleSubmit() {
     this.store.dispatch(
-      createCustomCard({
+      AdminAction.addCard({
         newItem: this.transformValues(this.cardCreationForm.value),
       })
     )

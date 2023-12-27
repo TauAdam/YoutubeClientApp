@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs'
 
-import { changeQuery } from '../../../redux/actions/youtube.actions'
+import * as YoutubeAction from '../../../redux/actions/youtube.actions'
 
 @Component({
   selector: 'app-header',
@@ -23,7 +23,7 @@ export class HeaderComponent {
         filter(value => value.length >= 3)
       )
       .subscribe(newQuery => {
-        this.store.dispatch(changeQuery({ newQuery }))
+        this.store.dispatch(YoutubeAction.changeQuery({ newQuery }))
       })
   }
 

@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, exhaustMap, map, of } from 'rxjs'
+import { catchError, exhaustMap, map, of, switchMap } from 'rxjs'
 
 import { YoutubeSearchService } from '../../youtube/services/youtube/youtube-search.service'
-import {
-  changeQuery,
-  getYoutubeError,
-  getYoutubeVideosSuccess,
-} from '../actions/youtube.actions'
+import * as YoutubeAction from '../actions/youtube.actions'
 
 @Injectable()
 export class YoutubeEffects {
@@ -16,13 +12,37 @@ export class YoutubeEffects {
     private readonly actions$: Actions
   ) {}
 
-  private getSearchVideos$ = createEffect(() => {
+  private searchResults$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(changeQuery),
+      ofType(YoutubeAction.changeQuery),
       exhaustMap(() =>
         this.youtubeService.getYoutubeVideos().pipe(
-          map(newVideos => getYoutubeVideosSuccess({ newVideos })),
-          catchError(newError => of(getYoutubeError({ newError })))
+          map(newVideos => YoutubeAction.getVideosSuccess({ newVideos })),
+          catchError(newError => of(YoutubeAction.setError({ newError })))
+        )
+      )
+    )
+  })
+
+  private prevPage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(YoutubeAction.goToPrevPage),
+      switchMap(() =>
+        this.youtubeService.getPrevPageResults().pipe(
+          map(newVideos => YoutubeAction.getVideosSuccess({ newVideos })),
+          catchError(newError => of(YoutubeAction.setError({ newError })))
+        )
+      )
+    )
+  })
+
+  private nextPage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(YoutubeAction.goToNextPage),
+      switchMap(() =>
+        this.youtubeService.getNextPageResults().pipe(
+          map(newVideos => YoutubeAction.getVideosSuccess({ newVideos })),
+          catchError(newError => of(YoutubeAction.setError({ newError })))
         )
       )
     )

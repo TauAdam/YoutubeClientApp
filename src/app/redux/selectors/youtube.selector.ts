@@ -4,19 +4,35 @@ import { YoutubePageState } from '../reducers/youtube.reducer'
 
 const selectYoutubeFeature = createFeatureSelector<YoutubePageState>('youtube')
 
-export const selectYoutubeVideos = createSelector(
+const selectVideos = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.videos
 )
-export const selectYoutubeSearch = createSelector(
+const selectQuery = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.searchQuery
 )
-export const selectYoutubeProgress = createSelector(
+const selectProgress = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.progress
 )
-export const selectYoutubeError = createSelector(
+const selectError = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.error
 )
+const selectCurrentPage = createSelector(
+  selectYoutubeFeature,
+  (state: YoutubePageState) => state.currentPage
+)
+const selectTokens = createSelector(
+  selectYoutubeFeature,
+  (state: YoutubePageState) => state.tokens
+)
+export {
+  selectCurrentPage,
+  selectError,
+  selectProgress,
+  selectQuery,
+  selectTokens,
+  selectVideos,
+}
