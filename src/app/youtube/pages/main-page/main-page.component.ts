@@ -33,13 +33,19 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     const customCards$ = this.store.select(fromAdmin.selectCustomCards)
     const youtubeVideos$ = this.store.select(fromYoutube.selectVideos)
+    const currentPage$ = this.store.select(fromYoutube.selectCurrentPage)
 
-    this.subscription = combineLatest([customCards$, youtubeVideos$])
+    this.subscription = combineLatest([
+      customCards$,
+      youtubeVideos$,
+      currentPage$,
+    ])
       .pipe(
-        map(([customCards, youtubeVideos]) => [
-          ...customCards,
-          ...youtubeVideos,
-        ])
+        map(([customCards, youtubeVideos, page]) => {
+          const videos =
+            page === 1 ? [...customCards, ...youtubeVideos] : [...youtubeVideos]
+          return videos.slice(0, 20)
+        })
       )
       .subscribe(videos => {
         this.videoItems = videos
