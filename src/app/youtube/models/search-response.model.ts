@@ -40,6 +40,7 @@ export type Video = {
   snippet: VideoSnippet
   statistics: Statistics
   custom: boolean
+  favorite: boolean
 }
 type VideoSnippet = {
   publishedAt: string

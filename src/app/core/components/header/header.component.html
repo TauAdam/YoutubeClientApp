@@ -16,6 +16,10 @@
         src="assets/search_settings.svg"
         alt="search_settings" />
     </div>
+    <app-custom-button routerLink="/favorites">
+      <mat-icon>favorite</mat-icon>
+      <div class="favorite-length">{{ favoriteVideosLength$ | async }}</div>
+    </app-custom-button>
     <div class="login-block">
       <app-login-information-block></app-login-information-block>
     </div>

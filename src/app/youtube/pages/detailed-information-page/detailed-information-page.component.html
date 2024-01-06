@@ -44,6 +44,9 @@
           </div>
         </div>
       </div>
+      <app-heart-button
+        *ngIf="selectedVideo"
+        [card]="selectedVideo"></app-heart-button>
       <app-delete-button
         *ngIf="selectedVideo?.custom"
         [customCardId]="selectedVideo?.id || ''"></app-delete-button>

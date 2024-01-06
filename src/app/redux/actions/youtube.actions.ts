@@ -10,6 +10,8 @@ enum YouTubePage {
   TO_NEXT_PAGE = '[Youtube Api] Get next page',
   TO_PREV_PAGE = '[Youtube Api] Get prev page',
   SAVE_PAGE_TOKENS = '[Youtube Api] Save page tokens',
+  LIKE = '[Youtube Api] Like selected video',
+  DISLIKE = '[Youtube Api] Dislike selected video',
 }
 
 const getVideosSuccess = createAction(
@@ -25,18 +27,26 @@ const setError = createAction(
   props<{ newError: string }>()
 )
 const goToNextPage = createAction(YouTubePage.TO_NEXT_PAGE)
-
 const goToPrevPage = createAction(YouTubePage.TO_PREV_PAGE)
+
 const setTokens = createAction(
   YouTubePage.SAVE_PAGE_TOKENS,
   props<{ newTokens: PageTokens }>()
 )
 
+const likeVideo = createAction(YouTubePage.LIKE, props<{ newId: string }>())
+const dislikeVideo = createAction(
+  YouTubePage.DISLIKE,
+  props<{ newId: string }>()
+)
+
 export {
   changeQuery,
+  dislikeVideo,
   getVideosSuccess,
   goToNextPage,
   goToPrevPage,
+  likeVideo,
   setError,
   setTokens,
 }

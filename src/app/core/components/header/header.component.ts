@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store'
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs'
 
 import * as YoutubeAction from '../../../redux/actions/youtube.actions'
+import * as fromYoutube from '../../../redux/selectors/youtube.selector'
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,10 @@ export class HeaderComponent {
   protected isFilteringBlockVisible = false
 
   protected inputText = new FormControl('', { nonNullable: true })
+
+  protected favoriteVideosLength$ = this.store.select(
+    fromYoutube.selectFavoritesLength
+  )
 
   public constructor(private store: Store) {
     this.inputText.valueChanges

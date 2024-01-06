@@ -6,6 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 import { CustomButtonComponent } from '../shared/custom-button/custom-button.component'
 import { DeleteButtonComponent } from './components/delete-button/delete-button.component'
+import { HeartButtonComponent } from './components/heart-button/heart-button.component'
 import { PaginationBlockComponent } from './components/pagination-block/pagination-block.component'
 import { SearchBarComponent } from './components/search-bar/search-bar.component'
 import { SearchItemComponent } from './components/search-item/search-item.component'
@@ -29,6 +30,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module'
     DetailedInformationPageComponent,
     DeleteButtonComponent,
     PaginationBlockComponent,
+    HeartButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -38,5 +40,6 @@ import { YoutubeRoutingModule } from './youtube-routing.module'
     CustomButtonComponent,
     YoutubeRoutingModule,
   ],
+  exports: [SearchResultsComponent, TextFilterPipe, SortSearchResultsPipe],
 })
 export class YoutubeModule {}

@@ -68,6 +68,7 @@ export class AdminPageComponent {
 
   private transformValues(values: CardCreationFormValues) {
     const transformedValues: Video = {
+      favorite: false,
       custom: true,
       id: crypto.randomUUID(),
       snippet: {

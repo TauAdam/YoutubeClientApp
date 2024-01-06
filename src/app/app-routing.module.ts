@@ -21,6 +21,12 @@ const routes: Routes = [
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule),
     canMatch: [adminAuthGuard],
   },
+  {
+    path: 'favorites',
+    loadChildren: () =>
+      import('./favorite/favorite.module').then(m => m.FavoriteModule),
+    canMatch: [adminAuthGuard],
+  },
   { path: '**', component: NotFoundPageComponent },
 ]
 
