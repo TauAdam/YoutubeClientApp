@@ -28,24 +28,24 @@ const selectTokens = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.tokens
 )
-const selectFavorites = createSelector(
+const selectFavoriteVideos = createSelector(
   selectYoutubeFeature,
-  (state: YoutubePageState) => state.videos.filter(el => el.favorite)
+  (state: YoutubePageState) => state.favoriteVideos
 )
-const selectFavoritesIndexes = createSelector(
+const selectFavoriteIndexes = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.favorites
 )
 const selectFavoritesLength = createSelector(
   selectYoutubeFeature,
-  (state: YoutubePageState) => state.videos.filter(el => el.favorite).length
+  (state: YoutubePageState) => state.favorites.length
 )
 export {
   selectCurrentPage,
   selectError,
-  selectFavorites,
-  selectFavoritesIndexes,
+  selectFavoriteIndexes,
   selectFavoritesLength,
+  selectFavoriteVideos,
   selectProgress,
   selectQuery,
   selectTokens,

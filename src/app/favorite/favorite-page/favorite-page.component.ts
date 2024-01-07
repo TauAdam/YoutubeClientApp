@@ -11,7 +11,9 @@ import { SortingService } from '../../youtube/services/sorting/sorting.service'
   styleUrls: ['./favorite-page.component.scss'],
 })
 export class FavoritePageComponent {
-  protected favoriteVideos$ = this.store.select(fromYoutube.selectFavorites)
+  protected favoriteVideos$ = this.store.select(
+    fromYoutube.selectFavoriteVideos
+  )
 
   public constructor(
     protected filteringService: FilteringService,

@@ -15,7 +15,7 @@ export class HeartButtonComponent {
   @Input() public card!: Video
 
   protected isFavorite = this.store
-    .select(fromYoutube.selectFavoritesIndexes)
+    .select(fromYoutube.selectFavoriteIndexes)
     .pipe(
       map(indexes => {
         return indexes.includes(this.card.id)

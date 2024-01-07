@@ -32,7 +32,7 @@ export class YoutubeSearchService {
       .set('id', id)
       .set('part', 'snippet,statistics')
     return this.http.get<VideosResponse>(Endpoint.VIDEOS, { params }).pipe(
-      withLatestFrom(this.store.select(fromYoutube.selectFavoritesIndexes)),
+      withLatestFrom(this.store.select(fromYoutube.selectFavoriteIndexes)),
       map(([res, favorites]) =>
         res.items.map(el => ({
           ...el,
