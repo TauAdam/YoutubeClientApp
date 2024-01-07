@@ -28,6 +28,6 @@
     <app-delete-button
       *ngIf="item.custom"
       [customCardId]="item.id"></app-delete-button>
-    <app-heart-button [card]="item"></app-heart-button>
+    <app-heart-button *ngIf="!item.custom" [card]="item"></app-heart-button>
   </mat-card-content>
 </mat-card>
