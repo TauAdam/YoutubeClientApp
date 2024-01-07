@@ -27,10 +27,11 @@ export class HeartButtonComponent {
 
   protected toggleFavoriteStatus(): void {
     const newId = this.card.id
-    this.store.dispatch(
-      this.card.favorite
-        ? YoutubeAction.dislikeVideo({ newId })
-        : YoutubeAction.likeVideo({ newId })
-    )
+    const action = this.card.favorite
+      ? YoutubeAction.dislikeVideo({ newId })
+      : YoutubeAction.likeVideo({ newId })
+
+    this.store.dispatch(action)
+    this.card.favorite = !this.card.favorite
   }
 }
