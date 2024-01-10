@@ -1,7 +1,7 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs'
+import { debounceTime, distinctUntilChanged, filter, Subscription } from 'rxjs'
 
 import * as YoutubeAction from '../../../redux/actions/youtube.actions'
 import * as fromYoutube from '../../../redux/selectors/youtube.selector'
@@ -11,7 +11,9 @@ import * as fromYoutube from '../../../redux/selectors/youtube.selector'
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
+  private subscription?: Subscription
+
   protected isFilteringBlockVisible = false
 
   protected inputText = new FormControl('', { nonNullable: true })
@@ -20,8 +22,10 @@ export class HeaderComponent {
     fromYoutube.selectFavoritesLength
   )
 
-  public constructor(private store: Store) {
-    this.inputText.valueChanges
+  public constructor(private store: Store) {}
+
+  public ngOnInit(): void {
+    this.subscription = this.inputText.valueChanges
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
@@ -30,6 +34,10 @@ export class HeaderComponent {
       .subscribe(newQuery => {
         this.store.dispatch(YoutubeAction.changeQuery({ newQuery }))
       })
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 
   protected toggleSortingBlock() {

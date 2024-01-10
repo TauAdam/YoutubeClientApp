@@ -1,5 +1,3 @@
 <app-custom-button class="heart-btn" (click)="toggleFavoriteStatus()">
-  <mat-icon>{{
-    (isFavorite | async) ? 'favorite' : 'favorite_border'
-  }}</mat-icon>
+  <mat-icon>{{ card.favorite ? 'favorite' : 'favorite_border' }}</mat-icon>
 </app-custom-button>

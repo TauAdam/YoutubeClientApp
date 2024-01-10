@@ -14,7 +14,7 @@ const selectQuery = createSelector(
 )
 const selectProgress = createSelector(
   selectYoutubeFeature,
-  (state: YoutubePageState) => state.progress
+  (state: YoutubePageState) => state.isInProgress
 )
 const selectError = createSelector(
   selectYoutubeFeature,

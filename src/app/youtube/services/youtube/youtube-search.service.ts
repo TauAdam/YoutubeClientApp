@@ -1,7 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators'
+import {
+  map,
+  shareReplay,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators'
 
 import * as YoutubeAction from '../../../redux/actions/youtube.actions'
 import * as fromYoutube from '../../../redux/selectors/youtube.selector'
@@ -15,7 +22,6 @@ const enum Endpoint {
   VIDEOS = 'videos',
   SEARCH = 'search',
 }
-
 @Injectable({
   providedIn: 'root',
 })
@@ -51,25 +57,27 @@ export class YoutubeSearchService {
   }
 
   private getVideoList(query: string, tokenType?: TokenType) {
+    const MAX_RESULTS_NUMBER = 20
+
     let params = new HttpParams()
       .set('type', 'video')
       .set('part', 'snippet')
-      .set('maxResults', '20')
+      .set('maxResults', MAX_RESULTS_NUMBER)
       .set('q', query)
 
-    this.pageTokens$.subscribe(tokens => {
+    this.pageTokens$.pipe(take(1)).subscribe(tokens => {
       if (tokenType && tokens[tokenType]) {
         params = params.set('pageToken', tokens[tokenType])
       }
     })
+
     return this.http.get<SearchResponse>(Endpoint.SEARCH, { params }).pipe(
-      map(response => {
+      tap(response => {
         const newTokens = {
           nextPageToken: response.nextPageToken || '',
           prevPageToken: response.prevPageToken || '',
         }
         this.store.dispatch(YoutubeAction.setTokens({ newTokens }))
-        return response
       }),
       map(res => res.items.map(el => el.id.videoId).join(',')),
       switchMap(idString => this.getVideosById(idString))

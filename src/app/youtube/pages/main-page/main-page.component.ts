@@ -19,7 +19,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   private subscription?: Subscription
 
-  protected progress = this.store.select(fromYoutube.selectProgress)
+  protected isInProgress = this.store.select(fromYoutube.selectProgress)
 
   protected error = this.store.select(fromYoutube.selectError)
 

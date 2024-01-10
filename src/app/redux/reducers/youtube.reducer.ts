@@ -7,7 +7,7 @@ import * as YoutubeAction from '../actions/youtube.actions'
 export interface YoutubePageState {
   videos: Video[]
   searchQuery: string
-  progress: boolean
+  isInProgress: boolean
   error: string
   currentPage: number
   tokens: PageTokens
@@ -17,7 +17,7 @@ export interface YoutubePageState {
 const initialState: YoutubePageState = {
   videos: [],
   searchQuery: '',
-  progress: false,
+  isInProgress: false,
   error: '',
   currentPage: 1,
   tokens: {
@@ -34,22 +34,23 @@ export const YoutubeReducer = createReducer(
     (state, { newVideos }): YoutubePageState => ({
       ...state,
       videos: newVideos,
-      progress: false,
+      isInProgress: false,
     })
   ),
   on(
     YoutubeAction.changeQuery,
     (state, { newQuery }): YoutubePageState => ({
       ...state,
+      videos: [],
       searchQuery: newQuery,
-      progress: true,
+      isInProgress: true,
     })
   ),
   on(
     YoutubeAction.setError,
     (state, { newError }): YoutubePageState => ({
       ...state,
-      progress: false,
+      isInProgress: false,
       error: newError,
     })
   ),
@@ -76,7 +77,9 @@ export const YoutubeReducer = createReducer(
   ),
   on(YoutubeAction.likeVideo, (state, { newId }): YoutubePageState => {
     const index = state.videos.findIndex(item => item.id === newId)
-    if (index > -1) {
+    const favoriteCard = state.favoriteVideos.find(el => el.id === newId)
+
+    if (index > -1 || favoriteCard) {
       const videoList = [...state.videos]
       videoList[index] = {
         ...videoList[index],
@@ -84,6 +87,7 @@ export const YoutubeReducer = createReducer(
       }
       return {
         ...state,
+        videos: videoList,
         favorites: [...state.favorites, newId],
         favoriteVideos: [...state.favoriteVideos, videoList[index]],
       }
