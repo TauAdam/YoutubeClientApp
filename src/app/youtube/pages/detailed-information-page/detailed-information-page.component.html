@@ -4,52 +4,57 @@
     class="back-btn"
     src="assets/back_button.svg"
     alt="back" />
-  <div class="search-item">
-    <div class="video">
-      <img
-        [src]="selectedVideo?.snippet?.thumbnails?.medium?.url"
-        [alt]="selectedVideo?.snippet?.title" />
-    </div>
+  <ng-container *ngIf="selectedVideo | async as videoItem; else notFound">
+    <div class="search-item">
+      <div class="video">
+        <img
+          [src]="videoItem.snippet.thumbnails.medium.url"
+          [alt]="videoItem.snippet.title" />
+      </div>
 
-    <div
-      class="right-side"
-      [appColoredBorder]="selectedVideo?.snippet?.publishedAt || ''">
-      <div class="right-side-header">
-        <div class="title">{{ selectedVideo?.snippet?.title }}</div>
-        <div class="date">
-          {{ selectedVideo?.snippet?.publishedAt | date: 'fullDate' }}
-        </div>
-      </div>
-      <div class="right-side-body">
-        <div class="desc-title">Description:</div>
-        <div class="desc-text">{{ selectedVideo?.snippet?.description }}</div>
-      </div>
-      <div class="right-side-statistics">
-        <div class="stats-bar">
-          <div class="stats-bar-item">
-            <mat-icon>visibility</mat-icon>
-            <span>{{ selectedVideo?.statistics?.viewCount }}</span>
-          </div>
-          <div class="stats-bar-item">
-            <mat-icon>thumb_up</mat-icon>
-            <span>{{ selectedVideo?.statistics?.likeCount }}</span>
-          </div>
-          <div class="stats-bar-item">
-            <mat-icon>thumb_down</mat-icon>
-            <span>-</span>
-          </div>
-          <div class="stats-bar-item">
-            <mat-icon>forum</mat-icon>
-            <span>{{ selectedVideo?.statistics?.commentCount }}</span>
+      <div
+        class="right-side"
+        [appColoredBorder]="videoItem.snippet.publishedAt || ''">
+        <div class="right-side-header">
+          <div class="title">{{ videoItem.snippet.title }}</div>
+          <div class="date">
+            {{ videoItem.snippet.publishedAt | date: 'fullDate' }}
           </div>
         </div>
+        <div class="right-side-body">
+          <div class="desc-title">Description:</div>
+          <div class="desc-text">{{ videoItem.snippet.description }}</div>
+        </div>
+        <div class="right-side-statistics">
+          <div class="stats-bar">
+            <div class="stats-bar-item">
+              <mat-icon>visibility</mat-icon>
+              <span>{{ videoItem.statistics.viewCount }}</span>
+            </div>
+            <div class="stats-bar-item">
+              <mat-icon>thumb_up</mat-icon>
+              <span>{{ videoItem.statistics.likeCount }}</span>
+            </div>
+            <div class="stats-bar-item">
+              <mat-icon>thumb_down</mat-icon>
+              <span>-</span>
+            </div>
+            <div class="stats-bar-item">
+              <mat-icon>forum</mat-icon>
+              <span>{{ videoItem.statistics.commentCount }}</span>
+            </div>
+          </div>
+        </div>
+        <app-heart-button
+          *ngIf="videoItem && !videoItem.custom"
+          [card]="videoItem"></app-heart-button>
+        <app-delete-button
+          *ngIf="videoItem.custom"
+          [customCardId]="videoItem.id || ''"></app-delete-button>
       </div>
-      <app-heart-button
-        *ngIf="selectedVideo && !selectedVideo.custom"
-        [card]="selectedVideo"></app-heart-button>
-      <app-delete-button
-        *ngIf="selectedVideo?.custom"
-        [customCardId]="selectedVideo?.id || ''"></app-delete-button>
     </div>
-  </div>
+  </ng-container>
+  <ng-template #notFound>
+    <p class="not-found">Video item not found.</p>
+  </ng-template>
 </div>

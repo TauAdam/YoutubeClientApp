@@ -1,14 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
-import {
-  map,
-  shareReplay,
-  switchMap,
-  take,
-  tap,
-  withLatestFrom,
-} from 'rxjs/operators'
+import { map, shareReplay, switchMap, take, tap } from 'rxjs/operators'
 
 import * as YoutubeAction from '../../../redux/actions/youtube.actions'
 import * as fromYoutube from '../../../redux/selectors/youtube.selector'
@@ -37,16 +30,9 @@ export class YoutubeSearchService {
     const params = new HttpParams()
       .set('id', id)
       .set('part', 'snippet,statistics')
-    return this.http.get<VideosResponse>(Endpoint.VIDEOS, { params }).pipe(
-      withLatestFrom(this.store.select(fromYoutube.selectFavoriteIndexes)),
-      map(([res, favorites]) =>
-        res.items.map(el => ({
-          ...el,
-          custom: false,
-          favorite: favorites.includes(el.id),
-        }))
-      )
-    )
+    return this.http
+      .get<VideosResponse>(Endpoint.VIDEOS, { params })
+      .pipe(map(res => res.items))
   }
 
   public getYoutubeVideos(tokenType?: TokenType) {

@@ -58,6 +58,7 @@ export const YoutubeReducer = createReducer(
     YoutubeAction.goToNextPage,
     (state): YoutubePageState => ({
       ...state,
+      isInProgress: true,
       currentPage: state.currentPage + 1,
     })
   ),
@@ -65,6 +66,7 @@ export const YoutubeReducer = createReducer(
     YoutubeAction.goToPrevPage,
     (state): YoutubePageState => ({
       ...state,
+      isInProgress: true,
       currentPage: state.currentPage > 1 ? state.currentPage - 1 : 1,
     })
   ),

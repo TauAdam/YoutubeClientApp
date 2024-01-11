@@ -32,7 +32,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const customCards$ = this.store.select(fromAdmin.selectCustomCards)
-    const youtubeVideos$ = this.store.select(fromYoutube.selectVideos)
+    const youtubeVideos$ = this.store.select(fromYoutube.selectYtVideos)
     const currentPage$ = this.store.select(fromYoutube.selectCurrentPage)
 
     this.subscription = combineLatest([

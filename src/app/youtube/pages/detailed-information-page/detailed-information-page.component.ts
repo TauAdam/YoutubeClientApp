@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Store } from '@ngrx/store'
-import { map, mergeMap, Subject, takeUntil } from 'rxjs'
+import { Observable, Subject, takeUntil } from 'rxjs'
 
 import * as fromAdmin from '../../../redux/selectors/custom-cards.selector'
 import { Video } from '../../models/search-response.model'
-import { YoutubeSearchService } from '../../services/youtube/youtube-search.service'
 
 @Component({
   selector: 'app-detailed-information-page',
@@ -13,42 +12,27 @@ import { YoutubeSearchService } from '../../services/youtube/youtube-search.serv
   styleUrls: ['./detailed-information-page.component.scss'],
 })
 export class DetailedInformationPageComponent implements OnInit, OnDestroy {
-  protected selectedVideo?: Video
+  protected selectedVideo!: Observable<Video | undefined>
+
+  private currentId?: string
 
   private destroy$ = new Subject<void>()
 
   public constructor(
     private route: ActivatedRoute,
-    private youtubeService: YoutubeSearchService,
     private store: Store
   ) {}
 
   public ngOnInit(): void {
-    this.route.params
-      .pipe(
-        mergeMap(params => {
-          const itemId = params['id']
-          const customCard$ = this.store.select(
-            fromAdmin.selectCustomCard(itemId)
-          )
-
-          return customCard$.pipe(
-            map(custom => (custom ? [custom] : [])),
-            mergeMap(result => {
-              if (result.length > 0) {
-                return result
-              }
-              return this.youtubeService.getVideosById(itemId)
-            })
-          )
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(videoSelectionResult => {
-        this.selectedVideo = Array.isArray(videoSelectionResult)
-          ? videoSelectionResult[0]
-          : videoSelectionResult
-      })
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
+      this.currentId = params['id']
+    })
+    if (!this.currentId) {
+      return
+    }
+    this.selectedVideo = this.store.select(
+      fromAdmin.selectVideoById(this.currentId)
+    )
   }
 
   public ngOnDestroy() {

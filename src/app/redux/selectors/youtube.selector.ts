@@ -4,7 +4,7 @@ import { YoutubePageState } from '../reducers/youtube.reducer'
 
 const selectYoutubeFeature = createFeatureSelector<YoutubePageState>('youtube')
 
-const selectVideos = createSelector(
+const selectYtVideos = createSelector(
   selectYoutubeFeature,
   (state: YoutubePageState) => state.videos
 )
@@ -49,5 +49,5 @@ export {
   selectProgress,
   selectQuery,
   selectTokens,
-  selectVideos,
+  selectYtVideos,
 }
