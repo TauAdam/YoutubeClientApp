@@ -11,7 +11,7 @@ import * as fromYoutube from '../../../redux/selectors/youtube.selector'
   styleUrls: ['./pagination-block.component.scss'],
 })
 export class PaginationBlockComponent implements OnInit, OnDestroy {
-  protected currentPage = this.store.select(fromYoutube.selectCurrentPage)
+  protected currentPage$ = this.store.select(fromYoutube.selectCurrentPage)
 
   private tokens$ = this.store.select(fromYoutube.selectTokens)
 

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 
 import { AdminPageState } from '../reducers/custom-cards.reducer'
-import { selectYtVideos } from './youtube.selector'
+import { selectFavoriteVideos, selectYtVideos } from './youtube.selector'
 
 const selectCustomCardsFeature = createFeatureSelector<AdminPageState>('admin')
 
@@ -16,7 +16,8 @@ const selectCustomCardById = (id: string) =>
 const selectVideos = createSelector(
   selectCustomCards,
   selectYtVideos,
-  (custom, youtube) => [...custom, ...youtube]
+  selectFavoriteVideos,
+  (custom, youtube, favorite) => [...custom, ...youtube, ...favorite]
 )
 const selectVideoById = (id: string) =>
   createSelector(selectVideos, videos => videos.find(el => el.id === id))

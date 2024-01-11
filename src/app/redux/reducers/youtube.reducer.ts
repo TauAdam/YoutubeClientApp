@@ -11,7 +11,6 @@ export interface YoutubePageState {
   error: string
   currentPage: number
   tokens: PageTokens
-  favorites: Array<string>
   favoriteVideos: Video[]
 }
 const initialState: YoutubePageState = {
@@ -24,7 +23,6 @@ const initialState: YoutubePageState = {
     nextPageToken: '',
     prevPageToken: '',
   },
-  favorites: [],
   favoriteVideos: [],
 }
 export const YoutubeReducer = createReducer(
@@ -85,12 +83,9 @@ export const YoutubeReducer = createReducer(
       const videoList = [...state.videos]
       videoList[index] = {
         ...videoList[index],
-        favorite: true,
       }
       return {
         ...state,
-        videos: videoList,
-        favorites: [...state.favorites, newId],
         favoriteVideos: [...state.favoriteVideos, videoList[index]],
       }
     }
@@ -103,12 +98,9 @@ export const YoutubeReducer = createReducer(
       const videoList = [...state.videos]
       videoList[index] = {
         ...videoList[index],
-        favorite: false,
       }
       return {
         ...state,
-        videos: videoList,
-        favorites: state.favorites.filter(el => el !== newId),
         favoriteVideos: state.favoriteVideos.filter(el => el.id !== newId),
       }
     }

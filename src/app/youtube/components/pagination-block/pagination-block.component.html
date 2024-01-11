@@ -7,7 +7,7 @@
     Previous
   </button>
   <span id="currentPage" class="pagination__number">{{
-    currentPage | async
+    currentPage$ | async
   }}</span>
   <button
     (click)="nextPage()"

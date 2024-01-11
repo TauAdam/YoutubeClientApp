@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   protected inputText = new FormControl('', { nonNullable: true })
 
   protected favoriteVideosLength$ = this.store.select(
-    fromYoutube.selectFavoritesLength
+    fromYoutube.selectFavoritesCount
   )
 
   public constructor(private store: Store) {}
