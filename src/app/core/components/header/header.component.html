@@ -18,7 +18,7 @@
     </div>
     <app-custom-button routerLink="/favorites">
       <mat-icon>favorite</mat-icon>
-      <div class="favorite-length">{{ favoriteVideosLength$ | async }}</div>
+      <div class="favorite-length">{{ favoritesCount$ | async }}</div>
     </app-custom-button>
     <div class="login-block">
       <app-login-information-block></app-login-information-block>

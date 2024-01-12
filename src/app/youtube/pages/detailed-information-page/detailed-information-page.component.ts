@@ -12,7 +12,7 @@ import { Video } from '../../models/search-response.model'
   styleUrls: ['./detailed-information-page.component.scss'],
 })
 export class DetailedInformationPageComponent implements OnInit, OnDestroy {
-  protected selectedVideo!: Observable<Video | undefined>
+  protected selectedVideo$!: Observable<Video | undefined>
 
   private currentId?: string
 
@@ -30,7 +30,7 @@ export class DetailedInformationPageComponent implements OnInit, OnDestroy {
     if (!this.currentId) {
       return
     }
-    this.selectedVideo = this.store.select(
+    this.selectedVideo$ = this.store.select(
       fromAdmin.selectVideoById(this.currentId)
     )
   }

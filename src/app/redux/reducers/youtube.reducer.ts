@@ -33,6 +33,7 @@ export const YoutubeReducer = createReducer(
       ...state,
       videos: newVideos,
       isInProgress: false,
+      error: '',
     })
   ),
   on(

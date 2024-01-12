@@ -4,7 +4,7 @@
     class="back-btn"
     src="assets/back_button.svg"
     alt="back" />
-  <ng-container *ngIf="selectedVideo | async as videoItem; else notFound">
+  <ng-container *ngIf="selectedVideo$ | async as videoItem; else notFound">
     <div class="search-item">
       <div class="video">
         <img

@@ -36,7 +36,7 @@ const selectFavoritesCount = createSelector(
   selectFavoriteVideos,
   videos => videos.length
 )
-const selectFavoriteStatus = (id: string) =>
+const selectFavoriteStatusById = (id: string) =>
   createSelector(selectFavoriteVideos, videos =>
     videos.some(item => item.id === id)
   )
@@ -45,7 +45,7 @@ export {
   selectCurrentPage,
   selectError,
   selectFavoritesCount,
-  selectFavoriteStatus,
+  selectFavoriteStatusById,
   selectFavoriteVideos,
   selectProgress,
   selectQuery,

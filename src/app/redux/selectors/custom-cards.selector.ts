@@ -1,7 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 
 import { AdminPageState } from '../reducers/custom-cards.reducer'
-import { selectFavoriteVideos, selectYtVideos } from './youtube.selector'
+import {
+  selectCurrentPage,
+  selectFavoriteVideos,
+  selectYtVideos,
+} from './youtube.selector'
 
 const selectCustomCardsFeature = createFeatureSelector<AdminPageState>('admin')
 
@@ -9,10 +13,7 @@ const selectCustomCards = createSelector(
   selectCustomCardsFeature,
   (state: AdminPageState) => state.customCards
 )
-const selectCustomCardById = (id: string) =>
-  createSelector(selectCustomCards, customCards =>
-    customCards.find(el => el.id === id)
-  )
+
 const selectVideos = createSelector(
   selectCustomCards,
   selectYtVideos,
@@ -22,4 +23,16 @@ const selectVideos = createSelector(
 const selectVideoById = (id: string) =>
   createSelector(selectVideos, videos => videos.find(el => el.id === id))
 
-export { selectCustomCardById, selectCustomCards, selectVideoById }
+const MAX_ITEMS_PER_PAGE = 20
+const selectMainPageVideos = createSelector(
+  selectCustomCards,
+  selectYtVideos,
+  selectCurrentPage,
+  (customCards, youtubeVideos, page) => {
+    const videos =
+      page === 1 ? [...customCards, ...youtubeVideos] : [...youtubeVideos]
+    return videos.slice(0, MAX_ITEMS_PER_PAGE)
+  }
+)
+
+export { selectCustomCards, selectMainPageVideos, selectVideoById }

@@ -21,10 +21,10 @@ export class HeartButtonComponent implements OnInit, OnDestroy {
   public constructor(private store: Store) {}
 
   public ngOnInit(): void {
-    const status = this.store.select(
-      fromYoutube.selectFavoriteStatus(this.card.id)
+    const status$ = this.store.select(
+      fromYoutube.selectFavoriteStatusById(this.card.id)
     )
-    this.subscription = status.subscribe(favorite => {
+    this.subscription = status$.subscribe(favorite => {
       this.isFavorite = favorite
     })
   }
