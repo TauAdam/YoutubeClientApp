@@ -1,48 +1,32 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Subject } from 'rxjs'
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  shareReplay,
-  switchMap,
-} from 'rxjs/operators'
+import { Store } from '@ngrx/store'
+import { map, shareReplay, switchMap, take, tap } from 'rxjs/operators'
 
+import * as YoutubeAction from '../../../redux/actions/youtube.actions'
+import * as fromYoutube from '../../../redux/selectors/youtube.selector'
 import {
   SearchResponse,
   VideosResponse,
 } from '../../models/search-response.model'
+import { TokenType } from '../../models/token.model'
 
 const enum Endpoint {
   VIDEOS = 'videos',
   SEARCH = 'search',
 }
-
 @Injectable({
   providedIn: 'root',
 })
 export class YoutubeSearchService {
-  public showResults = false
+  private pageTokens$ = this.store.select(fromYoutube.selectTokens)
 
-  public searchTagSubject = new Subject<string>()
+  public constructor(
+    private http: HttpClient,
+    private store: Store
+  ) {}
 
-  public videos$ = this.searchTagSubject.pipe(
-    debounceTime(1000),
-    distinctUntilChanged(),
-    filter(value => value.length >= 3),
-    switchMap(searchTag => this.getSearchVideos(searchTag)),
-    shareReplay(1)
-  )
-
-  public constructor(private http: HttpClient) {}
-
-  public setSearchQuery(query: string) {
-    this.searchTagSubject.next(query)
-  }
-
-  public getVideos(id: string) {
+  public getVideosById(id: string) {
     const params = new HttpParams()
       .set('id', id)
       .set('part', 'snippet,statistics')
@@ -51,15 +35,46 @@ export class YoutubeSearchService {
       .pipe(map(res => res.items))
   }
 
-  private getSearchVideos(query: string) {
-    const params = new HttpParams()
+  public getYoutubeVideos(tokenType?: TokenType) {
+    return this.store.select(fromYoutube.selectQuery).pipe(
+      switchMap(searchTag => this.getVideoList(searchTag, tokenType)),
+      shareReplay(1)
+    )
+  }
+
+  private getVideoList(query: string, tokenType?: TokenType) {
+    const MAX_RESULTS_NUMBER = 20
+
+    let params = new HttpParams()
       .set('type', 'video')
       .set('part', 'snippet')
-      .set('maxResults', '15')
+      .set('maxResults', MAX_RESULTS_NUMBER)
       .set('q', query)
+
+    this.pageTokens$.pipe(take(1)).subscribe(tokens => {
+      if (tokenType && tokens[tokenType]) {
+        params = params.set('pageToken', tokens[tokenType])
+      }
+    })
+
     return this.http.get<SearchResponse>(Endpoint.SEARCH, { params }).pipe(
+      tap(response => {
+        const newTokens = {
+          nextPageToken: response.nextPageToken || '',
+          prevPageToken: response.prevPageToken || '',
+        }
+        this.store.dispatch(YoutubeAction.setTokens({ newTokens }))
+      }),
       map(res => res.items.map(el => el.id.videoId).join(',')),
-      switchMap(idString => this.getVideos(idString))
+      switchMap(idString => this.getVideosById(idString))
     )
+  }
+
+  public getNextPageResults() {
+    return this.getYoutubeVideos('nextPageToken')
+  }
+
+  public getPrevPageResults() {
+    return this.getYoutubeVideos('prevPageToken')
   }
 }

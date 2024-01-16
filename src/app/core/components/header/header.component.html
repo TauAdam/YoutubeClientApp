@@ -4,8 +4,7 @@
       <app-logo></app-logo>
       <div class="search-block">
         <input
-          [(ngModel)]="inputText"
-          (ngModelChange)="onSearchQueryChange($event)"
+          [formControl]="inputText"
           class="search-input"
           type="search"
           matInput
@@ -17,6 +16,10 @@
         src="assets/search_settings.svg"
         alt="search_settings" />
     </div>
+    <app-custom-button routerLink="/favorites">
+      <mat-icon>favorite</mat-icon>
+      <div class="favorite-length">{{ favoritesCount$ | async }}</div>
+    </app-custom-button>
     <div class="login-block">
       <app-login-information-block></app-login-information-block>
     </div>

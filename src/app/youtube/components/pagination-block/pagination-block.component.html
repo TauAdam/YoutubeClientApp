@@ -1,0 +1,19 @@
+<div class="pagination">
+  <button
+    (click)="prevPage()"
+    [disabled]="isPrevButtonDisabled"
+    id="prevPage"
+    class="pagination__button">
+    Previous
+  </button>
+  <span id="currentPage" class="pagination__number">{{
+    currentPage$ | async
+  }}</span>
+  <button
+    (click)="nextPage()"
+    [disabled]="isNextButtonDisabled"
+    id="nextPage"
+    class="pagination__button">
+    Next
+  </button>
+</div>

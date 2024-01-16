@@ -1,25 +1,46 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { FormControl } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import { debounceTime, distinctUntilChanged, filter, Subscription } from 'rxjs'
 
-import { YoutubeSearchService } from '../../../youtube/services/youtube/youtube-search.service'
+import * as YoutubeAction from '../../../redux/actions/youtube.actions'
+import * as fromYoutube from '../../../redux/selectors/youtube.selector'
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
+  private subscription?: Subscription
+
   protected isFilteringBlockVisible = false
 
-  protected inputText = ''
+  protected inputText = new FormControl('', { nonNullable: true })
 
-  public constructor(private youtubeService: YoutubeSearchService) {}
+  protected favoritesCount$ = this.store.select(
+    fromYoutube.selectFavoritesCount
+  )
+
+  public constructor(private store: Store) {}
+
+  public ngOnInit(): void {
+    this.subscription = this.inputText.valueChanges
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        filter(value => value.length >= 3)
+      )
+      .subscribe(newQuery => {
+        this.store.dispatch(YoutubeAction.changeQuery({ newQuery }))
+      })
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
+  }
 
   protected toggleSortingBlock() {
     this.isFilteringBlockVisible = !this.isFilteringBlockVisible
-  }
-
-  protected onSearchQueryChange(query: string): void {
-    this.youtubeService.setSearchQuery(query)
-    this.youtubeService.showResults = true
   }
 }

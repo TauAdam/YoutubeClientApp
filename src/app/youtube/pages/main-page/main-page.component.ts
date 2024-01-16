@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
 
-import { Video } from '../../models/search-response.model'
+import * as fromAdmin from '../../../redux/selectors/custom-cards.selector'
+import * as fromYoutube from '../../../redux/selectors/youtube.selector'
 import { FilteringService } from '../../services/filtering/filtering.service'
 import { SortingService } from '../../services/sorting/sorting.service'
 import { YoutubeSearchService } from '../../services/youtube/youtube-search.service'
@@ -11,24 +12,17 @@ import { YoutubeSearchService } from '../../services/youtube/youtube-search.serv
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit, OnDestroy {
-  protected searchItems?: Video[]
+export class MainPageComponent {
+  protected videoItems$ = this.store.select(fromAdmin.selectMainPageVideos)
 
-  private subscription?: Subscription
+  protected isInProgress$ = this.store.select(fromYoutube.selectProgress)
+
+  protected errorMessage$ = this.store.select(fromYoutube.selectError)
 
   public constructor(
     protected youtubeService: YoutubeSearchService,
     protected filteringService: FilteringService,
-    protected sortingService: SortingService
+    protected sortingService: SortingService,
+    private store: Store
   ) {}
-
-  public ngOnInit(): void {
-    this.subscription = this.youtubeService.videos$.subscribe(videos => {
-      this.searchItems = videos
-    })
-  }
-
-  public ngOnDestroy(): void {
-    this.subscription?.unsubscribe()
-  }
 }
