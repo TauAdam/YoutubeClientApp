@@ -14,7 +14,7 @@
       </div>
       <div class="stats-bar-item">
         <mat-icon>thumb_down</mat-icon>
-        <span>{{ item.statistics.dislikeCount }}</span>
+        <span>-</span>
       </div>
       <div class="stats-bar-item">
         <mat-icon>forum</mat-icon>
@@ -25,5 +25,9 @@
     <app-custom-button [routerLink]="item.id" classNames="more-button"
       >more...</app-custom-button
     >
+    <app-delete-button
+      *ngIf="item.custom"
+      [customCardId]="item.id"></app-delete-button>
+    <app-heart-button *ngIf="!item.custom" [card]="item"></app-heart-button>
   </mat-card-content>
 </mat-card>

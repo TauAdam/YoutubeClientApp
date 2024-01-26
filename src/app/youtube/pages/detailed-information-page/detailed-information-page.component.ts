@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subject, takeUntil } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { Observable, Subject, takeUntil } from 'rxjs'
 
-import { SearchItem } from '../../models/search-item.model'
-import { YoutubeSearchService } from '../../services/youtube/youtube-search.service'
+import * as fromAdmin from '../../../redux/selectors/custom-cards.selector'
+import { Video } from '../../models/search-response.model'
 
 @Component({
   selector: 'app-detailed-information-page',
@@ -11,33 +12,31 @@ import { YoutubeSearchService } from '../../services/youtube/youtube-search.serv
   styleUrls: ['./detailed-information-page.component.scss'],
 })
 export class DetailedInformationPageComponent implements OnInit, OnDestroy {
-  protected selectedVideo!: SearchItem
+  protected selectedVideo$!: Observable<Video | undefined>
+
+  private currentId?: string
 
   private destroy$ = new Subject<void>()
 
   public constructor(
     private route: ActivatedRoute,
-    private youtubeService: YoutubeSearchService
+    private store: Store
   ) {}
 
   public ngOnInit(): void {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      const itemId = params['id']
-      if (itemId) {
-        this.onSelectVideo(itemId)
-      }
+      this.currentId = params['id']
     })
+    if (!this.currentId) {
+      return
+    }
+    this.selectedVideo$ = this.store.select(
+      fromAdmin.selectVideoById(this.currentId)
+    )
   }
 
   public ngOnDestroy() {
     this.destroy$.next()
     this.destroy$.complete()
-  }
-
-  protected onSelectVideo(id: string) {
-    const videoSelectionResult = this.youtubeService.getSelectedVideo(id)
-    if (videoSelectionResult) {
-      this.selectedVideo = videoSelectionResult
-    }
   }
 }

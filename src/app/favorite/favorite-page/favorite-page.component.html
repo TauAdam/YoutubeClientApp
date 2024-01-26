@@ -1,0 +1,12 @@
+<ng-container *ngIf="favoriteVideos$ | async as videoItems">
+  <div class="no-items" *ngIf="videoItems.length === 0">
+    There is no favorite videos
+  </div>
+
+  <app-search-results
+    [items]="
+      videoItems || []
+        | textFilter: filteringService.filterWord
+        | sortSearchResults: sortingService.sortOptions
+    "></app-search-results>
+</ng-container>

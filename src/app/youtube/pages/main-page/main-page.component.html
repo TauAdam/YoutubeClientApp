@@ -1,7 +1,12 @@
+<mat-spinner *ngIf="isInProgress$ | async"></mat-spinner>
+<div *ngIf="errorMessage$ | async" class="error-container">
+  <mat-icon class="error-icon">error</mat-icon>
+  <p>An error occurred. Please try again later.</p>
+</div>
+<app-pagination-block></app-pagination-block>
 <app-search-results
   [items]="
-    searchItems
+    (videoItems$ | async) || []
       | textFilter: filteringService.filterWord
       | sortSearchResults: sortingService.sortOptions
-  "
-  *ngIf="youtubeService.searchTag$ | async"></app-search-results>
+  "></app-search-results>

@@ -99,5 +99,16 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    overflow: auto;
+    text-overflow: ellipsis;
   }
+}
+
+.not-found {
+  margin: 20px auto;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
