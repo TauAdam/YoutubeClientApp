@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "prettier": "npx prettier --write .",
-    "deploy": "ng deploy --base-href=https://rolling-scopes-school.github.io/tauadam-ANGULAR2023Q4/"
+    "deploy": "ng deploy --base-href=/YoutubeClientApp/"
   },
   "private": true,
   "dependencies": {
