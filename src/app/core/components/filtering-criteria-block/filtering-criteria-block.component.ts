@@ -15,7 +15,7 @@ export class FilteringCriteriaBlockComponent {
     protected sortingService: SortingService
   ) {}
 
-  protected sortData(sort: Sort) {
+  public sortData(sort: Sort) {
     this.sortingService.handleSortChange(sort)
   }
 }

@@ -22,7 +22,7 @@ export class LoginInformationBlockComponent implements OnInit {
     })
   }
 
-  protected changeStatus() {
+  public changeStatus() {
     if (!this.isAuthorized) {
       this.router.navigate(['/youtube'])
     } else {
