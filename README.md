@@ -1,4 +1,7 @@
-# Using `pnpm` in Project
+# Youtube client app with Angular and NgRx state management library. 
+It allows to search for videos, watch them and save to favorites. It uses Youtube API to fetch videos.
+
+## Using `pnpm` in Project
 
 This project utilizes the [pnpm](https://pnpm.io/) package manager for managing dependencies efficiently. Here are the steps to get started with `pnpm` in this project:
 
